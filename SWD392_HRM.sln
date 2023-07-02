@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{45EC697B-D594-4469-A62D-D8E3B106B9ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{45EC697B-D594-4469-A62D-D8E3B106B9ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{819BB683-2E85-4844-82C7-566AAE6C6921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{819BB683-2E85-4844-82C7-566AAE6C6921}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{CF402614-4721-417E-8755-A4A498C105E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{CF402614-4721-417E-8755-A4A498C105E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMRazor", "HRMRazor\HRMRazor.csproj", "{64E8BAA6-95FF-438F-88DF-9FBA22CCE106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRMRazor", "HRMRazor\HRMRazor.csproj", "{64E8BAA6-95FF-438F-88DF-9FBA22CCE106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

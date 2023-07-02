@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model.Models
+{
+    public partial class Employee
+    {
+        public Employee()
+        {
+            Attendances = new HashSet<Attendance>();
+            ChangeWorkDepartmentRequestEmployees = new HashSet<ChangeWorkDepartmentRequest>();
+            ChangeWorkDepartmentRequestHrs = new HashSet<ChangeWorkDepartmentRequest>();
+            InverseManager = new HashSet<Employee>();
+            LeaveRequestEmployees = new HashSet<LeaveRequest>();
+            LeaveRequestHrs = new HashSet<LeaveRequest>();
+            OtrequestApprovers = new HashSet<Otrequest>();
+            OtrequestEmployees = new HashSet<Otrequest>();
+            ResignationRequestApprovers = new HashSet<ResignationRequest>();
+            ResignationRequestEmployees = new HashSet<ResignationRequest>();
+            TaxRequestApprovers = new HashSet<TaxRequest>();
+            TaxRequestEmployees = new HashSet<TaxRequest>();
+            UpdateEmployeeInforRequestApprovers = new HashSet<UpdateEmployeeInforRequest>();
+            UpdateEmployeeInforRequestEmployees = new HashSet<UpdateEmployeeInforRequest>();
+        }
+
+        public string EmployeeId { get; set; } = null!;
+        public string? EmplyeeName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public int? Gender { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? Role { get; set; }
+        public string? DepartmentId { get; set; }
+        public string? Phone { get; set; }
+        public string? Address { get; set; }
+        public decimal? Salary { get; set; }
+        public string? TaxCode { get; set; }
+        public string? Level { get; set; }
+        public string? ManagerId { get; set; }
+        public DateTime? DayOne { get; set; }
+        public DateTime? LastDay { get; set; }
+
+        public virtual Department? Department { get; set; }
+        public virtual Employee? Manager { get; set; }
+        public virtual ICollection<Attendance> Attendances { get; set; }
+        public virtual ICollection<ChangeWorkDepartmentRequest> ChangeWorkDepartmentRequestEmployees { get; set; }
+        public virtual ICollection<ChangeWorkDepartmentRequest> ChangeWorkDepartmentRequestHrs { get; set; }
+        public virtual ICollection<Employee> InverseManager { get; set; }
+        public virtual ICollection<LeaveRequest> LeaveRequestEmployees { get; set; }
+        public virtual ICollection<LeaveRequest> LeaveRequestHrs { get; set; }
+        public virtual ICollection<Otrequest> OtrequestApprovers { get; set; }
+        public virtual ICollection<Otrequest> OtrequestEmployees { get; set; }
+        public virtual ICollection<ResignationRequest> ResignationRequestApprovers { get; set; }
+        public virtual ICollection<ResignationRequest> ResignationRequestEmployees { get; set; }
+        public virtual ICollection<TaxRequest> TaxRequestApprovers { get; set; }
+        public virtual ICollection<TaxRequest> TaxRequestEmployees { get; set; }
+        public virtual ICollection<UpdateEmployeeInforRequest> UpdateEmployeeInforRequestApprovers { get; set; }
+        public virtual ICollection<UpdateEmployeeInforRequest> UpdateEmployeeInforRequestEmployees { get; set; }
+    }
+}
