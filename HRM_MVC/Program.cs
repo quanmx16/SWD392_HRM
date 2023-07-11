@@ -1,6 +1,7 @@
 using DataAccess.EmployeeRepositories;
 using Microsoft.EntityFrameworkCore;
 using Model.Data;
+using Prn221_group_project.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseCustomAuthorization();
 
 app.MapControllerRoute(
     name: "default",
