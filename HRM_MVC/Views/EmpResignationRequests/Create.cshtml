@@ -1,0 +1,71 @@
+﻿@model Model.Models.ResignationRequest
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ResignationRequest</h4>
+@if (ViewData.ContainsKey("SuccessMessage"))
+{
+    <div class="alert alert-success">@ViewData["SuccessMessage"]</div>
+}
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         @*   <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="RequestDate" class="control-label"></label>
+                <input asp-for="RequestDate" type="date" class="form-control" />
+                <span asp-validation-for="RequestDate" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="LastWorkingDate" class="control-label"></label>
+                <input asp-for="LastWorkingDate" type="date" class="form-control" />
+                <span asp-validation-for="LastWorkingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label"></label>
+                <input asp-for="Reason" class="form-control" />
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+        @*    <div class="form-group">
+                <label asp-for="RequestStatus" class="control-label"></label>
+                <input asp-for="RequestStatus" class="form-control" />
+                <span asp-validation-for="RequestStatus" class="text-danger"></span>
+            </div>*@
+         @*   <div class="form-group">
+                <label asp-for="ApproveDate" class="control-label"></label>
+                <input asp-for="ApproveDate" class="form-control" />
+                <span asp-validation-for="ApproveDate" class="text-danger"></span>
+            </div>*@
+           @* <div class="form-group">
+                <label asp-for="ApproverId" class="control-label"></label>
+                <select asp-for="ApproverId" class ="form-control" asp-items="ViewBag.ApproverId"></select>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
