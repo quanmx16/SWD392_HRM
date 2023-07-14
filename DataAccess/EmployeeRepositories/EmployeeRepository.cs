@@ -17,6 +17,7 @@ namespace DataAccess.EmployeeRepositories
         bool CreateEmployee(Employee employee);
         bool UpdateEmployee(Employee employee);
         Employee GetEmployeeById(string id);
+        Employee? GetEmployeeByEmail(string email);
         List<Employee> GetHROrHRM();
     }
     public class EmployeeRepository : IEmployeeRepository
@@ -89,6 +90,16 @@ namespace DataAccess.EmployeeRepositories
         public List<Employee> GetHROrHRM()
         {
             return _context.Employees.Where(x => x.Role == "HR" || x.Role == "HR Manager").ToList();
+        }
+
+        public Employee? GetEmployeeByEmail(string email)
+        {
+            var employee = (from emp in _context.Employees where emp.Email == email select emp).ToList();
+            if(employee.Count > 0)
+            {
+                return employee[0];
+            }
+            return null;
         }
     }
 }
