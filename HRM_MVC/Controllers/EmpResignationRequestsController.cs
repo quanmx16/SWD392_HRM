@@ -89,11 +89,26 @@ namespace HRM_MVC.Controllers
                 return View(resignationRequest);
 
             }
-            resignationRequest.RequestStatus = RequestStatus.PENDDING;
-            empResignationRequestsRepository.saveResgination(resignationRequest);
-            ViewData["SuccessMessage"] = "resignation request created successfully.";
+          
 
-            return View(resignationRequest);
+
+
+
+            try
+            {
+                resignationRequest.RequestStatus = RequestStatus.PENDDING;
+                empResignationRequestsRepository.saveResgination(resignationRequest);
+                ViewData["SuccessMessage"] = "resignation request created successfully.";
+                return View(resignationRequest);
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception and add an error message to ViewData
+                ViewData["ErrorMessage"] = "Failed to create resignation request: " + ex.Message;
+                return View(resignationRequest);
+            }
+
+            //return View(resignationRequest);
         }
 
         // GET: EmpResignationRequests/Edit/5

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace Model.Models
 {
@@ -7,6 +9,9 @@ namespace Model.Models
     {
         public int RequestId { get; set; }
         public string EmployeeId { get; set; } = null!;
+
+        [Display(Name = "Date Off")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateOff { get; set; }
         public int? DaysLeave { get; set; }
         public string? Reason { get; set; }

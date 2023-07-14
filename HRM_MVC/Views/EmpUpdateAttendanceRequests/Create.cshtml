@@ -1,4 +1,4 @@
-﻿@model Model.Models.ResignationRequest
+﻿@model Model.Models.UpdateAttendanceRequest
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,8 @@
 
 <h1>Create</h1>
 
-<h4>ResignationRequest</h4>
+<h4>UpdateAttendanceRequest</h4>
+
 @if (ViewData.ContainsKey("SuccessMessage"))
 {
     <div class="alert alert-success">@ViewData["SuccessMessage"]</div>
@@ -22,40 +23,39 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-         @*   <div class="form-group">
+           @* <div class="form-group">
+                <label asp-for="RequestId" class="control-label"></label>
+                <input asp-for="RequestId" class="form-control" />
+                <span asp-validation-for="RequestId" class="text-danger"></span>
+            </div>*@
+          @*  <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label"></label>
                 <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
             </div>*@
             <div class="form-group">
-                <label asp-for="RequestDate" class="control-label"></label>
-                <input asp-for="RequestDate" type="date" class="form-control" />
-                <span asp-validation-for="RequestDate" class="text-danger"></span>
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
-                <label asp-for="LastWorkingDate" class="control-label"></label>
-                <input asp-for="LastWorkingDate" type="date" class="form-control" />
-                <span asp-validation-for="LastWorkingDate" class="text-danger"></span>
+                <label asp-for="TimeIn" class="control-label"></label>
+                <input asp-for="TimeIn" type="time" class="form-control" />
+                <span asp-validation-for="TimeIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reason" class="control-label"></label>
                 <input asp-for="Reason" class="form-control" />
                 <span asp-validation-for="Reason" class="text-danger"></span>
             </div>
-        @*    <div class="form-group">
-                <label asp-for="RequestStatus" class="control-label"></label>
-                <input asp-for="RequestStatus" class="form-control" />
-                <span asp-validation-for="RequestStatus" class="text-danger"></span>
-            </div>*@
-         @*   <div class="form-group">
-                <label asp-for="ApproveDate" class="control-label"></label>
-                <input asp-for="ApproveDate" class="form-control" />
-                <span asp-validation-for="ApproveDate" class="text-danger"></span>
-            </div>*@
-           @* <div class="form-group">
-                <label asp-for="ApproverId" class="control-label"></label>
-                <select asp-for="ApproverId" class ="form-control" asp-items="ViewBag.ApproverId"></select>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="Hrid" class="control-label"></label>
+                <select asp-for="Hrid" class ="form-control" asp-items="ViewBag.Hrid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
                 <input asp-for="Comment" class="form-control" />
