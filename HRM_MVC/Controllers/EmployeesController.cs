@@ -101,7 +101,7 @@ namespace HRM_MVC.Controllers
                 }
             }
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-            ViewData["ManagerId"] = new SelectList(_context.Employees, "EmployeeId", "EmplyeeName", employee.ManagerId);
+            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
             return View(employee);
         }
     }
