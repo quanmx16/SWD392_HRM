@@ -19,6 +19,8 @@ namespace Model.Models
             ResignationRequestEmployees = new HashSet<ResignationRequest>();
             TaxRequestApprovers = new HashSet<TaxRequest>();
             TaxRequestEmployees = new HashSet<TaxRequest>();
+            UpdateAttendanceRequestEmployees = new HashSet<UpdateAttendanceRequest>();
+            UpdateAttendanceRequestHrs = new HashSet<UpdateAttendanceRequest>();
             UpdateEmployeeInforRequestApprovers = new HashSet<UpdateEmployeeInforRequest>();
             UpdateEmployeeInforRequestEmployees = new HashSet<UpdateEmployeeInforRequest>();
         }
@@ -54,6 +56,8 @@ namespace Model.Models
         public virtual ICollection<ResignationRequest> ResignationRequestEmployees { get; set; }
         public virtual ICollection<TaxRequest> TaxRequestApprovers { get; set; }
         public virtual ICollection<TaxRequest> TaxRequestEmployees { get; set; }
+        public virtual ICollection<UpdateAttendanceRequest> UpdateAttendanceRequestEmployees { get; set; }
+        public virtual ICollection<UpdateAttendanceRequest> UpdateAttendanceRequestHrs { get; set; }
         public virtual ICollection<UpdateEmployeeInforRequest> UpdateEmployeeInforRequestApprovers { get; set; }
         public virtual ICollection<UpdateEmployeeInforRequest> UpdateEmployeeInforRequestEmployees { get; set; }
     }

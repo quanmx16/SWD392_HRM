@@ -26,6 +26,7 @@ namespace Model.Data
         public virtual DbSet<Otrequest> Otrequests { get; set; } = null!;
         public virtual DbSet<ResignationRequest> ResignationRequests { get; set; } = null!;
         public virtual DbSet<TaxRequest> TaxRequests { get; set; } = null!;
+        public virtual DbSet<UpdateAttendanceRequest> UpdateAttendanceRequests { get; set; } = null!;
         public virtual DbSet<UpdateEmployeeInforRequest> UpdateEmployeeInforRequests { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -355,6 +356,45 @@ namespace Model.Data
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TaxRequest_Employee");
+            });
+
+            modelBuilder.Entity<UpdateAttendanceRequest>(entity =>
+            {
+                entity.HasKey(e => e.RequestId);
+
+                entity.ToTable("UpdateAttendanceRequest");
+
+                entity.Property(e => e.RequestId).ValueGeneratedNever();
+
+                entity.Property(e => e.Comment).HasMaxLength(50);
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Hrid)
+                    .HasMaxLength(10)
+                    .HasColumnName("HRID")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Reason).HasMaxLength(300);
+
+                entity.Property(e => e.Status).HasMaxLength(20);
+
+                entity.Property(e => e.TimeIn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.UpdateAttendanceRequestEmployees)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UpdateAtt__EmployeeID");
+
+                entity.HasOne(d => d.Hr)
+                    .WithMany(p => p.UpdateAttendanceRequestHrs)
+                    .HasForeignKey(d => d.Hrid)
+                    .HasConstraintName("FK__UpdateAtt__HRID");
             });
 
             modelBuilder.Entity<UpdateEmployeeInforRequest>(entity =>
