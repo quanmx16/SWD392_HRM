@@ -1,0 +1,44 @@
+﻿@model CheckAttendenceModel
+@{
+}
+<div class="form-control">
+    <div>
+        <form method="get" asp-action="Index" asp-controller="Attendence">
+            <label for="dateCheck">Select Date:</label>
+            <input asp-for="@Model.DateCheck" name="dateCheck" type="date" />
+            <input type="submit" value="Go" />
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    EmplyeeName
+                </th>
+                <th>
+                    CheckAttendence
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post" asp-action="SubmitAttendence" asp-controller="Attendence">
+                <input asp-for="@Model.DateCheck" type="date" hidden/>
+                @for (int i = 0; i < Model.Attendances.Count(); i++)
+                {
+                <tr>
+                    <td>
+                        <input asp-for="@Model.Attendances[i].Employee.EmployeeId" value="@Model.Attendances[i].Employee.EmployeeId" hidden readonly />
+                        <p>@Model.Attendances[i].Employee.EmplyeeName</p>
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Attendances[i].IsChecked" type="checkbox" />
+                        <label for="chk_@Model.Attendances[i].Employee.EmployeeId">Attendance</label>
+                    </td>
+                </tr>
+                }
+            <input type="submit" value="Submit" />
+            </form>
+        </tbody>
+    </table>
+</div>
