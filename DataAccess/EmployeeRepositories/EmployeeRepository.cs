@@ -17,7 +17,7 @@ namespace DataAccess.EmployeeRepositories
         bool CreateEmployee(Employee employee);
         bool UpdateEmployee(Employee employee);
         Employee GetEmployeeById(string id);
-        Employee? GetEmployeeByEmail(string email);
+        Employee? GetEmployeeByEmail(string email, string password);
         List<Employee> GetHROrHRM();
         List<Employee> GetAll();
         List<Employee> Search(string search);
@@ -47,7 +47,7 @@ namespace DataAccess.EmployeeRepositories
                 CustomIdGenerator customIdGenerator = new CustomIdGenerator("EMP");
                 EntityEntry<Employee> entry = _context.Entry(employee);
                 string id = customIdGenerator.Next(entry);
-                if(employee.DayOne == null)
+                if (employee.DayOne == null)
                 {
                     employee.DayOne = DateTime.Now;
                 }
@@ -95,12 +95,12 @@ namespace DataAccess.EmployeeRepositories
             return _context.Employees.Where(x => x.Role == "HR" || x.Role == "HR Manager").ToList();
         }
 
-        public Employee? GetEmployeeByEmail(string email)
+        public Employee? GetEmployeeByEmail(string email, string password)
         {
-            var employee = (from emp in _context.Employees where emp.Email == email select emp).ToList();
-            if(employee.Count > 0)
+            var employee = _context.Employees.Where(x => x.Email.Equals(email) && x.Password.Equals(password) && (x.LastDay == null || x.LastDay > DateTime.Now)).FirstOrDefault();
+            if (employee != null)
             {
-                return employee[0];
+                return employee;
             }
             return null;
         }
@@ -117,7 +117,7 @@ namespace DataAccess.EmployeeRepositories
             try
             {
                 var employee = _context.Employees.Find(id);
-                if(employee != null)
+                if (employee != null)
                 {
                     employee.LastDay = DateTime.Now;
                     _context.Entry(employee).State = EntityState.Modified;
@@ -128,7 +128,8 @@ namespace DataAccess.EmployeeRepositories
                 {
                     return false;
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return false;
             }

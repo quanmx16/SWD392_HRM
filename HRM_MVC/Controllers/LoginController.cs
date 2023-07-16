@@ -21,14 +21,14 @@ namespace HRM_MVC.Controllers
                 return View("Index");
             }
             IEmployeeRepository employeeRepository = new EmployeeRepository();
-            Employee? employee = employeeRepository.GetEmployeeByEmail(email);
+            Employee? employee = employeeRepository.GetEmployeeByEmail(email, password);
             if (employee == null)
             {
                 ViewData["LoginError"] = "Email or password is incorrect. Try again!";
                 ViewData["Email"] = email;
                 return View("Index");
             }
-            LoginAccount loginAccount =new LoginAccount();
+            LoginAccount loginAccount = new LoginAccount();
             loginAccount.Employee = employee;
             SessionHelper.SerializeObjectToSession(HttpContext.Session, loginAccount, KeyConstants.ACCOUNT_KEY);
             return RedirectToAction("Index", "Employees");
