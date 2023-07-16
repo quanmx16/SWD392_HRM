@@ -2,9 +2,9 @@
 {
     public class Roles
     {
-        public static String ROLE_EMPLOYEE = "Employee";
-        public static String ROLE_HR = "HR";
-        public static String ROLE_HR_MANAGER = "HRManager";
+        public static string ROLE_EMPLOYEE = "Employee";
+        public static string ROLE_HR = "HR";
+        public static string ROLE_HR_MANAGER = "HRManager";
 
     }
 }
