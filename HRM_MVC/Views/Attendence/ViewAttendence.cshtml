@@ -4,9 +4,9 @@
     ViewData["Title"] = "ViewAttendence";
 }
 
-<h1>ViewAttendence</h1>
-<form id="myForm" method="post" asp-action="ViewAttendence">
-    <select id="yearSelector" name="yearSelector">
+<h1 style="text-align: center;">ViewAttendence</h1>
+<form id="myForm" method="post" asp-action="ViewAttendence" style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <select id="yearSelector" name="yearSelector" class="form-control" style="margin-right: 10px;">
         @for (int i = Model.Year - 10; i <= Model.Year + 10; i++)
         {
             if (Model.Year == i)
@@ -23,7 +23,7 @@
             }
         }
     </select>
-    <select id="weekSelector" name="weekSelector">
+    <select id="weekSelector" name="weekSelector" class="form-control">
         @foreach (var option in Model.DateInWeek)
         {
             if (Model.WeekNumb == option.WeekNum)
@@ -42,7 +42,7 @@
     </select>
 </form>
 
-<table class="table">
+<table class="table" style="width: 100%;">
     <thead>
         <tr>
             <th>
