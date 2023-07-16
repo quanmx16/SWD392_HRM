@@ -1,15 +1,13 @@
 ﻿@model CheckAttendenceModel
 @{
 }
-<div class="form-control">
-    <div>
-        <form method="get" asp-action="Index" asp-controller="Attendence">
-            <label for="dateCheck">Select Date:</label>
-            <input asp-for="@Model.DateCheck" name="dateCheck" type="date" />
-            <input type="submit" value="Go" />
-        </form>
+<div class="form-control" style="max-width: 1200px; margin: 0 auto;">
+    <div style="display: flex; align-items: center;">
+        <label for="dateCheck" style="margin-right: 10px;">Select Date:</label>
+        <input asp-for="@Model.DateCheck" name="dateCheck" type="date" class="form-control" />
+        <input type="submit" value="Go" class="btn btn-primary" />
     </div>
-    <table class="table">
+    <table class="table" style="margin-top: 20px;">
         <thead>
             <tr>
                 <th>
@@ -32,12 +30,12 @@
                         <p>@Model.Attendances[i].Employee.EmplyeeName</p>
                     </td>
                     <td>
-                        <input asp-for="@Model.Attendances[i].IsChecked" type="checkbox" />
+                        <input asp-for="@Model.Attendances[i].IsChecked" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" />
                         <label for="chk_@Model.Attendances[i].Employee.EmployeeId">Attendance</label>
                     </td>
                 </tr>
                 }
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" class="btn btn-primary" />
             </form>
         </tbody>
     </table>
