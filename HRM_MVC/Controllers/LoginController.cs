@@ -1,4 +1,5 @@
 ﻿using DataAccess.EmployeeRepositories;
+using HRM_MVC.Common;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
@@ -31,7 +32,22 @@ namespace HRM_MVC.Controllers
             LoginAccount loginAccount = new LoginAccount();
             loginAccount.Employee = employee;
             SessionHelper.SerializeObjectToSession(HttpContext.Session, loginAccount, KeyConstants.ACCOUNT_KEY);
-            return RedirectToAction("Index", "Employees");
+            if(employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+            {
+                return View("EmployeeHome");
+            }
+            else if(employee.Role.Trim() == Roles.ROLE_HR)
+            {
+                return View("HRHome");
+            }
+            else if (employee.Role.Trim() == Roles.ROLE_HR_MANAGER)
+            {
+                return View("HRManagerHome");
+            }
+            else
+            {
+                return View("Index");
+            }
         }
     }
 }
