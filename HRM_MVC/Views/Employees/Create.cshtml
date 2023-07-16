@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label">Department ID</label>
-                    <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
+                    <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
                 </div>
                 <div class="form-group">
                     <label asp-for="Salary" class="control-label">Salary</label>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ManagerId" class="control-label">Manager ID</label>
-                    <select asp-for="ManagerId" class ="form-control" asp-items="ViewBag.ManagerId"></select>
+                    <select asp-for="ManagerId" class="form-control" asp-items="ViewBag.ManagerId"></select>
                 </div>
                 <div class="form-group">
                     <label asp-for="DayOne" class="control-label">Day One</label>
@@ -108,5 +108,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

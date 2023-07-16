@@ -31,7 +31,7 @@ namespace HRM_MVC.Controllers
             LoginAccount loginAccount =new LoginAccount();
             loginAccount.Employee = employee;
             SessionHelper.SerializeObjectToSession(HttpContext.Session, loginAccount, KeyConstants.ACCOUNT_KEY);
-            return View();
+            return RedirectToAction("Index", "Employees");
         }
     }
 }

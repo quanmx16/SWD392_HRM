@@ -19,6 +19,9 @@ namespace DataAccess.EmployeeRepositories
         Employee GetEmployeeById(string id);
         Employee? GetEmployeeByEmail(string email);
         List<Employee> GetHROrHRM();
+        List<Employee> GetAll();
+        List<Employee> Search(string search);
+        bool RemoveEmployee(string id);
     }
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -100,6 +103,35 @@ namespace DataAccess.EmployeeRepositories
                 return employee[0];
             }
             return null;
+        }
+        public List<Employee> GetAll()
+        {
+            return _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => x.LastDay == null || x.LastDay > DateTime.Now).ToList();
+        }
+        public List<Employee> Search(string search)
+        {
+            return _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => (x.LastDay == null || x.LastDay > DateTime.Now) && (x.EmplyeeName.ToLower().Contains(search.ToLower()) || x.EmployeeId.ToLower().Equals(search.ToLower()))).ToList();
+        }
+        public bool RemoveEmployee(string id)
+        {
+            try
+            {
+                var employee = _context.Employees.Find(id);
+                if(employee != null)
+                {
+                    employee.LastDay = DateTime.Now;
+                    _context.Entry(employee).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

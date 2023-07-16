@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.EmployeeRepositories;
+using HRM_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,45 @@ namespace HRM_MVC.Controllers
 {
     public class EmployeesController : Controller
     {
-        protected IEmployeeRepository employeeRepository;
-        protected readonly HRM_SWD392Context _context;
-        public EmployeesController()
+        private readonly HRM_SWD392Context _context;
+        private readonly IEmployeeRepository employeeRepository;
+
+        public EmployeesController(HRM_SWD392Context context)
         {
-            _context = new HRM_SWD392Context();
-            employeeRepository = new EmployeeRepository(_context);
+            _context = context;
+            employeeRepository = new EmployeeRepository();
+        }
+
+        // GET: Employees
+        public async Task<IActionResult> Index(string search)
+        {
+            EmpViewModel empViewModel = new EmpViewModel();
+            if (string.IsNullOrEmpty(search))
+            {
+                empViewModel.listEmp = employeeRepository.GetAll();
+            }
+            else
+            {
+                empViewModel.listEmp = employeeRepository.Search(search);
+            }
+            return View(empViewModel);
+        }
+
+        // GET: Employees/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null || _context.Employees == null)
+            {
+                return NotFound();
+            }
+
+            var employee = employeeRepository.GetEmployeeById(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
         }
 
         // GET: Employees/Create
@@ -103,6 +137,36 @@ namespace HRM_MVC.Controllers
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
             ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
             return View(employee);
+        }
+
+        // GET: Employees/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null || _context.Employees == null)
+            {
+                return NotFound();
+            }
+
+            var employee = employeeRepository.GetEmployeeById(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            if (_context.Employees == null)
+            {
+                return Problem("Entity set 'HRM_SWD392Context.Employees'  is null.");
+            }
+            employeeRepository.RemoveEmployee(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

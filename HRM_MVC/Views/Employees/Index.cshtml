@@ -1,0 +1,128 @@
+﻿@model EmpViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="col-sm-8 form-group">
+    <form method="get" asp-action="Index" class="search-form">
+        <div class="search-box">
+            <input type="text" class="input-search" placeholder="Type to Search..." asp-for="search">
+            <button class="btn btn-search" data-toggle="modal">Search</button>
+        </div>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EmplyeeName
+            </th>
+            <th>
+                DateOfBirth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                TaxCode
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                DayOne
+            </th>
+            <th>
+                LastDay
+            </th>
+            <th>
+                Department
+            </th>
+            <th>
+                Manager
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listEmp)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmplyeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOne)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager.EmplyeeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId.Trim()">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId.Trim()">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId.Trim()">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
