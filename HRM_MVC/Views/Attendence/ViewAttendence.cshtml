@@ -1,0 +1,103 @@
+﻿@model ViewAttendenceModel
+
+@{
+    ViewData["Title"] = "ViewAttendence";
+}
+
+<h1>ViewAttendence</h1>
+<form id="myForm" method="post" asp-action="ViewAttendence">
+    <select id="yearSelector" name="yearSelector">
+        @for (int i = Model.Year - 10; i <= Model.Year + 10; i++)
+        {
+            if (Model.Year == i)
+            {
+                <option value="@i" selected>
+                    @i
+                </option>
+            }
+            else
+            {
+                <option value="@i">
+                    @i
+                </option>
+            }
+        }
+    </select>
+    <select id="weekSelector" name="weekSelector">
+        @foreach (var option in Model.DateInWeek)
+        {
+            if (Model.WeekNumb == option.WeekNum)
+            {
+                <option value="@option.WeekNum" selected>
+                    @option.WeekDisplay
+                </option>
+            }
+            else
+            {
+                <option value="@option.WeekNum">
+                    @option.WeekDisplay
+                </option>
+            }
+        }
+    </select>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Monday
+            </th>
+            <th>
+                Tuesday
+            </th>
+            <th>
+                Wednesday
+            </th>
+            <th>
+                Thursday
+            </th>
+            <th>
+                Friday
+            </th>
+            <th>
+                Saturday
+            </th>
+            <th>
+                Sunday
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model.Attendances)
+            {
+                <td>
+                    @if (item.EmployeeId == "Not yet")
+                    {
+                        <p>Not yet</p>
+                    }
+                    else if (item.EmployeeId == "Not in")
+                    {
+                        <p></p>
+                    }
+                    else if (item.EmployeeId != "")
+                    {
+                        <p>Present</p>
+                    }
+                    else
+                    {
+                        <p>Absent</p>
+                    }
+                </td>
+            }
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<script>
+    document.getElementById("weekSelector").addEventListener("change", function () {
+        document.getElementById("myForm").submit();
+    });
+</script>

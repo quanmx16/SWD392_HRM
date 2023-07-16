@@ -12,6 +12,7 @@ namespace DataAccess.AttendenceRepositories
     {
         void CheckAttendence(List<string> empId,DateTime dateCheck);
         List<Attendance> GetAttendenceOfDate(DateTime date);
+        List<Attendance> GetAttendenceOfEmp(string id,DateTime startDate,DateTime endDate);
     }
     public class AttendenceRepository: IAttendenceRepository
     {
@@ -37,6 +38,11 @@ namespace DataAccess.AttendenceRepositories
         public List<Attendance> GetAttendenceOfDate(DateTime date)
         {
             return context.Attendances.Where(x => x.AttendanceDate == date.Date).ToList();
+        }
+
+        public List<Attendance> GetAttendenceOfEmp(string id, DateTime startDate, DateTime endDate)
+        {
+            return context.Attendances.Where(x => x.EmployeeId == id && x.AttendanceDate.Value >= startDate && x.AttendanceDate.Value <= endDate).ToList();
         }
     }
 }
