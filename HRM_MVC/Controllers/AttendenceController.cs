@@ -1,5 +1,6 @@
 ﻿using DataAccess.AttendenceRepositories;
 using DataAccess.EmployeeRepositories;
+using HRM_MVC.Common;
 using HRM_MVC.Models;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace HRM_MVC.Controllers
         public IActionResult Index(DateTime? dateCheck)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals("Employee"))
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -70,7 +71,7 @@ namespace HRM_MVC.Controllers
         public IActionResult SubmitAttendence(CheckAttendenceModel model)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals("Employee"))
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }

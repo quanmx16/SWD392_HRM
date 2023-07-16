@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.EmployeeRepositories;
+using HRM_MVC.Common;
 using HRM_MVC.Models;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
@@ -27,43 +28,67 @@ namespace HRM_MVC.Controllers
         // GET: Employees
         public async Task<IActionResult> Index(string search)
         {
-            EmpViewModel empViewModel = new EmpViewModel();
-            if (string.IsNullOrEmpty(search))
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                empViewModel.listEmp = employeeRepository.GetAll();
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-                empViewModel.listEmp = employeeRepository.Search(search);
+                EmpViewModel empViewModel = new EmpViewModel();
+                if (string.IsNullOrEmpty(search))
+                {
+                    empViewModel.listEmp = employeeRepository.GetAll();
+                }
+                else
+                {
+                    empViewModel.listEmp = employeeRepository.Search(search);
+                }
+                return View(empViewModel);
             }
-            return View(empViewModel);
         }
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Employees == null)
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                return NotFound();
+                return RedirectToAction("Index", "Login");
             }
-
-            var employee = employeeRepository.GetEmployeeById(id);
-            if (employee == null)
+            else
             {
-                return NotFound();
-            }
+                if (id == null || _context.Employees == null)
+                {
+                    return NotFound();
+                }
 
-            return View(employee);
+                var employee = employeeRepository.GetEmployeeById(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                return View(employee);
+            }
         }
 
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
 
-            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName");
+                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName");
 
-            return View();
+                return View();
+            }
         }
 
         // POST: Employees/Create
@@ -73,41 +98,65 @@ namespace HRM_MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeId,EmplyeeName,DateOfBirth,Gender,Email,Password,Role,DepartmentId,Phone,Address,Salary,TaxCode,Level,ManagerId,DayOne,LastDay")] Employee employee)
         {
-            if (ModelState.IsValid)
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                bool check = employeeRepository.CreateEmployee(employee);
-                if (check)
-                {
-                    return RedirectToAction("Create");
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return RedirectToAction("Index", "Login");
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-            return View(employee);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    bool check = employeeRepository.CreateEmployee(employee);
+                    if (check)
+                    {
+                        return RedirectToAction("Create");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                List<string> roles = new List<string>
+                {
+                    Roles.ROLE_EMPLOYEE,
+                    Roles.ROLE_HR_MANAGER,
+                    Roles.ROLE_HR
+                };
+
+                ViewData["Roles"] = new SelectList(roles,employee.Role);
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                return View(employee);
+            }
         }
 
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                return NotFound();
-            }
-
-            var employee = employeeRepository.GetEmployeeById(id);
-            if (employee == null)
-            {
-                return NotFound();
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-                return View(employee);
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var employee = employeeRepository.GetEmployeeById(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    return View(employee);
+                }
             }
         }
 
@@ -118,43 +167,59 @@ namespace HRM_MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("EmployeeId,EmplyeeName,DateOfBirth,Gender,Email,Password,Role,DepartmentId,Phone,Address,Salary,TaxCode,Level,ManagerId,DayOne,LastDay")] Employee employee)
         {
-            if (id != employee.EmployeeId.Trim())
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                return NotFound();
+                return RedirectToAction("Index", "Login");
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                var check = employeeRepository.UpdateEmployee(employee);
-                if (check)
-                {
-                    return RedirectToAction("Create");
-                }
-                else
+                if (id != employee.EmployeeId.Trim())
                 {
                     return NotFound();
                 }
+
+                if (ModelState.IsValid)
+                {
+                    var check = employeeRepository.UpdateEmployee(employee);
+                    if (check)
+                    {
+                        return RedirectToAction("Create");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                return View(employee);
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-            return View(employee);
         }
 
         // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Employees == null)
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                return NotFound();
+                return RedirectToAction("Index", "Login");
             }
-
-            var employee = employeeRepository.GetEmployeeById(id);
-            if (employee == null)
+            else
             {
-                return NotFound();
-            }
+                if (id == null || _context.Employees == null)
+                {
+                    return NotFound();
+                }
 
-            return View(employee);
+                var employee = employeeRepository.GetEmployeeById(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                return View(employee);
+            }
         }
 
         // POST: Employees/Delete/5
@@ -162,12 +227,32 @@ namespace HRM_MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Employees == null)
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
             {
-                return Problem("Entity set 'HRM_SWD392Context.Employees'  is null.");
+                return RedirectToAction("Index", "Login");
             }
-            employeeRepository.RemoveEmployee(id);
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                if (_context.Employees == null)
+                {
+                    return Problem("Entity set 'HRM_SWD392Context.Employees'  is null.");
+                }
+                employeeRepository.RemoveEmployee(id);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+        private Employee AuthorAuthen()
+        {
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
+            {
+                return null;
+            }
+            else
+            {
+                return loginAccount.Employee;
+            }
         }
     }
 }

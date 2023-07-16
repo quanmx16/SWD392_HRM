@@ -1,7 +1,13 @@
 ﻿@model Model.Models.Employee
-
+@using HRM_MVC.Common;
 @{
     ViewData["Title"] = "Edit";
+    List<string> roles = new List<string>
+            {
+        Roles.ROLE_EMPLOYEE,
+        Roles.ROLE_HR_MANAGER,
+        Roles.ROLE_HR
+            };
 }
 
 <h1>Edit</h1>
@@ -39,9 +45,19 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
-                <span asp-validation-for="Role" class="text-danger"></span>
+                <label asp-for="Role" class="control-label">Role</label>
+                <select asp-for="Role">
+                    @foreach(string s in roles)
+                    {
+                        if(s == Model.Role)
+                        {
+                            <option value="@s" selected="selected">@s</option>
+                        }
+                        else{
+                            <option value="@s">@s</option>
+                        }
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="DepartmentId" class="control-label"></label>
