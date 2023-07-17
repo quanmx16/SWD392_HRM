@@ -63,7 +63,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Role" class="control-label">Role</label>
-                    @Html.DropDownListFor(m => m.Role, new SelectList(roles), "Select a Role", new { @class = "form-control" })
+                    <select asp-for="Role">
+                        @for (int i = 0; i < 3; i++)
+                        {
+                            <option value="@roles[i]">@roles[i]</option>
+
+                        }
+                    </select>
                 </div>
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label">Department ID</label>

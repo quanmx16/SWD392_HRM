@@ -171,7 +171,6 @@ namespace HRM_MVC.Controllers
                             Id = 3
                         }
                     };
-                    ViewData["Roles"] = new SelectList(roles, "RoleName", "RoleName", employee.Role);
                     ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                     if (employee.Role.Trim() == Roles.ROLE_HR)
                     {
