@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Models
 {
@@ -29,10 +30,15 @@ namespace Model.Models
         public string? EmplyeeName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int? Gender { get; set; }
+        [Required(ErrorMessage = "Please enter your email address")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[a-z0-9._%+-]+@+[a-z0-9.-]+.+[a-z]{2,4}", ErrorMessage = "Please enter correct email")]
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Role { get; set; }
         public string? DepartmentId { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^0\d{9}$", ErrorMessage = "Please enter a valid phone number starting with '0' and having 10 digits")]
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public decimal? Salary { get; set; }

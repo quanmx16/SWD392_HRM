@@ -1,0 +1,132 @@
+﻿@model EmpViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="text-align: center;">Index</h1>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="col-sm-8 form-group" style="margin-right: 10px;">
+        <form method="get" asp-action="Index" class="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type to Search..." asp-for="search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </div>
+</div>
+
+<table class="table" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                EmplyeeName
+            </th>
+            <th>
+                DateOfBirth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                TaxCode
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                DayOne
+            </th>
+            <th>
+                LastDay
+            </th>
+            <th>
+                Department
+            </th>
+            <th>
+                Manager
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listEmp)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmplyeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOne)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager.EmplyeeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId.Trim()" style="margin-right: 5px; color: #007bff; text-decoration: none;">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId.Trim()" style="margin-right: 5px; color: #007bff; text-decoration: none;">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId.Trim()" style="margin-right: 5px; color: #007bff; text-decoration: none;">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

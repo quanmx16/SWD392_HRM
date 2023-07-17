@@ -1,7 +1,13 @@
-﻿@model Model.Models.Employee
-
+﻿@using HRM_MVC.Common;
+@model Model.Models.Employee;
 @{
     ViewData["Title"] = "Create";
+    List<string> roles = new List<string>
+            {
+        Roles.ROLE_EMPLOYEE,
+        Roles.ROLE_HR_MANAGER,
+        Roles.ROLE_HR
+            };
 }
 
 <h1>Create</h1>
@@ -57,12 +63,11 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Role" class="control-label">Role</label>
-                    <input asp-for="Role" class="form-control" />
-                    <span asp-validation-for="Role" class="text-danger"></span>
+                    @Html.DropDownListFor(m => m.Role, new SelectList(roles), "Select a Role", new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label">Department ID</label>
-                    <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
+                    <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
                 </div>
                 <div class="form-group">
                     <label asp-for="Salary" class="control-label">Salary</label>
@@ -81,7 +86,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ManagerId" class="control-label">Manager ID</label>
-                    <select asp-for="ManagerId" class ="form-control" asp-items="ViewBag.ManagerId"></select>
+                    <select asp-for="ManagerId" class="form-control" asp-items="ViewBag.ManagerId"></select>
                 </div>
                 <div class="form-group">
                     <label asp-for="DayOne" class="control-label">Day One</label>
@@ -108,5 +113,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

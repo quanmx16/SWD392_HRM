@@ -1,4 +1,5 @@
 ﻿using DataAccess.EmployeeRepositories;
+using HRM_MVC.Common;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
@@ -10,8 +11,31 @@ namespace HRM_MVC.Controllers
 
         public IActionResult Index()
         {
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
+            {
+                return View();
+            }
+            else
+            {
+                if (loginAccount.Employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+                {
+                    return View("EmployeeHome");
+                }
+                else if (loginAccount.Employee.Role.Trim() == Roles.ROLE_HR)
+                {
+                    return View("HRHome");
+                }
+                else if (loginAccount.Employee.Role.Trim() == Roles.ROLE_HR_MANAGER)
+                {
+                    return View("HRManagerHome");
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
 
-            return View();
         }
         public IActionResult LoginAction(string email, string password)
         {
@@ -21,17 +45,32 @@ namespace HRM_MVC.Controllers
                 return View("Index");
             }
             IEmployeeRepository employeeRepository = new EmployeeRepository();
-            Employee? employee = employeeRepository.GetEmployeeByEmail(email);
+            Employee? employee = employeeRepository.GetEmployeeByEmail(email, password);
             if (employee == null)
             {
                 ViewData["LoginError"] = "Email or password is incorrect. Try again!";
                 ViewData["Email"] = email;
                 return View("Index");
             }
-            LoginAccount loginAccount =new LoginAccount();
+            LoginAccount loginAccount = new LoginAccount();
             loginAccount.Employee = employee;
             SessionHelper.SerializeObjectToSession(HttpContext.Session, loginAccount, KeyConstants.ACCOUNT_KEY);
-            return View();
+            if(employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+            {
+                return View("EmployeeHome");
+            }
+            else if(employee.Role.Trim() == Roles.ROLE_HR)
+            {
+                return View("HRHome");
+            }
+            else if (employee.Role.Trim() == Roles.ROLE_HR_MANAGER)
+            {
+                return View("HRManagerHome");
+            }
+            else
+            {
+                return View("Index");
+            }
         }
     }
 }
