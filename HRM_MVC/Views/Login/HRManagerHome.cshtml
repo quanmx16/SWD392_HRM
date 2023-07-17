@@ -16,7 +16,15 @@
         <button type="submit" class="btn btn-secondary" style="width: 500px;">Create new Employee</button>
     </form>
 
-    <form action="/employees" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee đi đâu đó</button>
+    <form asp-action="Index" asp-controller="UpdateEmployeeInforRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Check Update Employee Infor Requests</button>
+    </form><form asp-action="ResignationRequests" asp-controller="ResignationRequest" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Check Resignation Requests</button>
+    </form><form asp-action="Index" asp-controller="LeaveRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Create new Employee</button>
+    </form>
+
+    <form asp-action="Index" asp-controller="Logout" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">Logout</button>
     </form>
 </div>

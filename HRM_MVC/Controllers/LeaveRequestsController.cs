@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.LeaveRequestRepositories;
+using HRM_MVC.Common;
+using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -24,58 +26,92 @@ namespace HRM_MVC.Controllers
         // GET: LeaveRequests
         public async Task<IActionResult> Index()
         {
-            var leaveRequests = await _leaveRequestRepo.GetAllLeaveRequest();
-            return View(leaveRequests);
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
+            {
+                return RedirectToAction("Error");
+            }
+            else
+            {
+                var leaveRequests = await _leaveRequestRepo.GetAllLeaveRequest();
+                return View(leaveRequests);
+            }
         }
 
         // GET: LeaveRequests/Approve/5
         public async Task<IActionResult> Approve(int? id)
         {
-            var result = await _leaveRequestRepo.Approve(id!.Value);
-            if (result)
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
             {
-                TempData["Success"] = "Approve Successfully";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Error");
             }
-            return NotFound();
-           
+            else
+            {
+                var result = await _leaveRequestRepo.Approve(id!.Value);
+                if (result)
+                {
+                    TempData["Success"] = "Approve Successfully";
+                    return RedirectToAction(nameof(Index));
+                }
+                return NotFound();
+            }
         }
 
         // GET: LeaveRequests/Deny/5
         public async Task<IActionResult> Deny(int? id)
         {
-            var result = await _leaveRequestRepo.Deny(id!.Value);
-            if (result)
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
             {
-                TempData["Success"] = "Deny Successfully";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Error");
             }
-            return NotFound();
+            else
+            {
+                var result = await _leaveRequestRepo.Deny(id!.Value);
+                if (result)
+                {
+                    TempData["Success"] = "Deny Successfully";
+                    return RedirectToAction(nameof(Index));
+                }
+                return NotFound();
+            }
         }
         #endregion
-
-        // GET: LeaveRequests/Create
-        public async Task<IActionResult> Create()
+        private Employee AuthorAuthen()
         {
-            ViewData["EmployeeId"] = new SelectList( await _leaveRequestRepo.GetAllEmployees(), "EmployeeId", "EmployeeId");
-            ViewData["Hrid"] = new SelectList(await _leaveRequestRepo.GetAllHR() , "EmployeeId", "EmployeeId");
-            return View();
-        }
-
-        // POST: LeaveRequests/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,DateOff,DaysLeave,Reason,Hrid,Comment")] LeaveRequest leaveRequest)
-        {
-            leaveRequest.Status = "Pending";
-            var result= await _leaveRequestRepo.CreateLeaveRequest(leaveRequest);   
-            if (result)
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
             {
-                TempData["Success"] = "Create Successfully";
-                return RedirectToAction(nameof(Create));
+                return null;
             }
-            return RedirectToAction(nameof(Create));
+            else
+            {
+                return loginAccount.Employee;
+            }
         }
+        //// GET: LeaveRequests/Create
+        //public async Task<IActionResult> Create()
+        //{
+        //    ViewData["EmployeeId"] = new SelectList( await _leaveRequestRepo.GetAllEmployees(), "EmployeeId", "EmployeeId");
+        //    ViewData["Hrid"] = new SelectList(await _leaveRequestRepo.GetAllHR() , "EmployeeId", "EmployeeId");
+        //    return View();
+        //}
+
+        //// POST: LeaveRequests/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("EmployeeId,DateOff,DaysLeave,Reason,Hrid,Comment")] LeaveRequest leaveRequest)
+        //{
+        //    leaveRequest.Status = "Pending";
+        //    var result= await _leaveRequestRepo.CreateLeaveRequest(leaveRequest);   
+        //    if (result)
+        //    {
+        //        TempData["Success"] = "Create Successfully";
+        //        return RedirectToAction(nameof(Create));
+        //    }
+        //    return RedirectToAction(nameof(Create));
+        //}
 
         #region Edit
         //// GET: LeaveRequests/Edit/5
