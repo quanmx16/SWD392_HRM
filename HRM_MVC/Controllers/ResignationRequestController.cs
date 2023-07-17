@@ -1,4 +1,6 @@
 ﻿using DataAccess.ResignationRequestRepositories;
+using HRM_MVC.Common;
+using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,39 +22,77 @@ namespace HRM_MVC.Controllers
         [Route("/ResignationRequest/ResignationRequests")]
         public IActionResult ResignationRequests()
         {
-            List<ResignationRequest> listRequest = resignationRequestRepository.GetAllPendingResignationRequests();
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
+            {
+                return RedirectToAction("Error");
+            }
+            else
+            {
 
-            return View(listRequest);
+                List<ResignationRequest> listRequest = resignationRequestRepository.GetAllPendingResignationRequests();
+
+                return View(listRequest);
+            }
         }
 
         [HttpGet]
         public IActionResult Approve(int id)
         {
-            var request = resignationRequestRepository.GetResignationRequestById(id);
-
-            if(request != null)
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
             {
-                request.RequestStatus = "Approve";
-                request.ApproveDate = DateTime.Now;
-                resignationRequestRepository.UpdateResignationRequest(request);
+                return RedirectToAction("Error");
             }
+            else
+            {
+                var request = resignationRequestRepository.GetResignationRequestById(id);
 
-            return RedirectToAction("ResignationRequests");
+                if (request != null)
+                {
+                    request.RequestStatus = "Approve";
+                    request.ApproveDate = DateTime.Now;
+                    resignationRequestRepository.UpdateResignationRequest(request);
+                }
+
+                return RedirectToAction("ResignationRequests");
+            }
         }
+
         [HttpGet]
         public IActionResult Deny(int id)
         {
-            var request = resignationRequestRepository.GetResignationRequestById(id);
-
-            if (request != null)
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Trim().Equals(Roles.ROLE_HR_MANAGER))
             {
-                request.RequestStatus = "Deny";
-                resignationRequestRepository.UpdateResignationRequest(request);
+                return RedirectToAction("Error");
             }
+            else
+            {
+                var request = resignationRequestRepository.GetResignationRequestById(id);
 
-            return RedirectToAction("ResignationRequests");
+                if (request != null)
+                {
+                    request.RequestStatus = "Deny";
+                    resignationRequestRepository.UpdateResignationRequest(request);
+                }
+
+                return RedirectToAction("ResignationRequests");
+            }
         }
 
+        private Employee AuthorAuthen()
+        {
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
+            {
+                return null;
+            }
+            else
+            {
+                return loginAccount.Employee;
+            }
+        }
         /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("EmployeeId,EmplyeeName,DateOfBirth,Gender,Email,Password,Role,DepartmentId,Phone,Address,Salary,TaxCode,Level,ManagerId,DayOne,LastDay")] Employee employee)

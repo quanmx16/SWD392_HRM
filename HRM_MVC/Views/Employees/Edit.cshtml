@@ -63,13 +63,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Role" class="control-label">Role</label>
-                    @*<select asp-for="Role">
+                    <select asp-for="Role">
                         @for (int i = 0; i < 3; i++)
                         {
-                            if (roles[i].Equals(Model.Role))
+                            if (roles[i].Equals(Model.Role.Trim()))
                             {
-                                <option value="@i" selected>
-                                    @i
+                                <option value="@roles[i]" selected>
+                                    @roles[i]
                                 </option>
                             }
                             else
@@ -77,8 +77,8 @@
                                 <option value="@roles[i]">@roles[i]</option>
                             }
                         }
-                    </select>*@
-                    <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>
+                    </select>
+                    @*<select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>*@
                 </div>
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label">Department ID</label>

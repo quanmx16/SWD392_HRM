@@ -19,10 +19,10 @@ namespace HRM_MVC.Controllers
         private readonly HRM_SWD392Context _context;
         private readonly IEmployeeRepository employeeRepository;
 
-        public EmployeesController(HRM_SWD392Context context)
+        public EmployeesController(HRM_SWD392Context context, IEmployeeRepository employeeRepository)
         {
             _context = context;
-            employeeRepository = new EmployeeRepository();
+            this.employeeRepository = employeeRepository;
         }
 
         // GET: Employees
@@ -31,7 +31,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -49,27 +49,23 @@ namespace HRM_MVC.Controllers
         }
 
         // GET: Employees/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details()
         {
             var user = AuthorAuthen();
             if (user == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
-                if (id == null || _context.Employees == null)
-                {
-                    return RedirectToAction("Error");
-                }
-
-                var employee = employeeRepository.GetEmployeeById(id);
+                
+                var employee = employeeRepository.GetEmployeeById(user.EmployeeId);
                 if (employee == null)
                 {
                     return RedirectToAction("Error");
                 }
 
-                return View();
+                return View(employee);
             }
         }
 
@@ -79,7 +75,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -101,7 +97,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -137,7 +133,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -171,7 +167,6 @@ namespace HRM_MVC.Controllers
                             Id = 3
                         }
                     };
-                    ViewData["Roles"] = new SelectList(roles, "RoleName", "RoleName", employee.Role);
                     ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                     if (employee.Role.Trim() == Roles.ROLE_HR)
                     {
@@ -200,7 +195,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -244,7 +239,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -271,7 +266,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {

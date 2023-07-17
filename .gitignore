@@ -405,3 +405,5 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
 /DataAccess/AttendenceRepositories/AttendenceRepository.cs
 /.gitignore
+/HRM_MVC/Controllers/EmpResignationRequestsController.cs
+/DataAccess/RequestRepository/RequestRepository.cs

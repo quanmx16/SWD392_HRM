@@ -117,7 +117,7 @@ namespace HRM_MVC.Controllers
                 DateTime end = GetLastDateOfWeek(DateTime.Now.Year, GetCurrentWeekNumber() + 1);
                 model.Attendances = new List<Attendance>();
                 var atts = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, start, end);
-                for (DateTime currentDate = start; currentDate <= end.AddDays(-2); currentDate = currentDate.AddDays(1))
+                for (DateTime currentDate = start.AddDays(1); currentDate <= end.AddDays(-1); currentDate = currentDate.AddDays(1))
                 {
                     bool check = false;
                     foreach (var att in atts)
@@ -196,7 +196,7 @@ namespace HRM_MVC.Controllers
                 DateTime end = GetLastDateOfWeek(yearSelector, weekSelector);
                 model.Attendances = new List<Attendance>();
                 var atts = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, start, end);
-                for (DateTime currentDate = start; currentDate <= end.AddDays(-2); currentDate = currentDate.AddDays(1))
+                for (DateTime currentDate = start.AddDays(1); currentDate <= end.AddDays(-1); currentDate = currentDate.AddDays(1))
                 {
                     bool check = false;
                     foreach (var att in atts)

@@ -72,11 +72,11 @@ namespace HRM_MVC.Controllers
 
 
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
-            //string empId = loginAccount.Employee.EmployeeId;
-            string empId = "1111111111";
+            string empId = loginAccount.Employee.EmployeeId;
+            //string empId = "1111111111";
             //hard code get emp id after login
 
-            
+
             updateAttendanceRequest.EmployeeId = empId;
 
             //if (resignationRequest.RequestDate < DateTime.Now)
