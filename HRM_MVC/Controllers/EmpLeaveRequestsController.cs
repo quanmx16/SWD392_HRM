@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,9 +71,9 @@ namespace HRM_MVC.Controllers
             //hard code get emp id after login
             
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
-            //string empId = loginAccount.Employee.EmployeeId;
+            string empId = loginAccount.Employee.EmployeeId;
 
-            string empId = "1111111111";
+            //string empId = "1111111111";
             //hard code get emp id after login
 
             leaveRequest.EmployeeId = empId;

@@ -1,4 +1,4 @@
-﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -6,26 +6,24 @@
 <div style="text-align: center;">
     
     <form asp-action="Details" asp-controller="Employees"  style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">My profile</button>
+        <button type="submit" class="btn btn-Attendence">My profile</button>
     </form>
 
-    <form action="/EmpLeaveRequests/Create" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee create leave requests</button>
+    <form asp-action="ViewAttendence" asp-controller="Attendence" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">View Attendence</button>
     </form>
 
-    <form action="/EmpUpdateAttendanceRequests/Create" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee create update attandance request</button>
+    <form asp-action="Create" asp-controller="EmpLeaveRequests" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">Employee create leave request</button>
     </form>
 
-    <form action="/EmpResignationRequests/Create" style="display: inline-block;">
+    <form asp-action="Create" asp-controller="EmpResignationRequests" method="get" style="display: inline-block;">
         <button type="submit" class="btn btn-secondary">Employee create resignation requests</button>
     </form>
 
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
+    <form asp-action="Create" asp-controller="EmpUpdateAttendanceRequests" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">Employee create attendance requests</button>
     </form>
 
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
-    </form>
+   
 </div>
