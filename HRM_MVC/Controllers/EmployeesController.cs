@@ -49,7 +49,7 @@ namespace HRM_MVC.Controllers
         }
 
         // GET: Employees/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details()
         {
             var user = AuthorAuthen();
             if (user == null)
@@ -58,18 +58,14 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                if (id == null || _context.Employees == null)
-                {
-                    return RedirectToAction("Error");
-                }
-
-                var employee = employeeRepository.GetEmployeeById(id);
+                
+                var employee = employeeRepository.GetEmployeeById(user.EmployeeId);
                 if (employee == null)
                 {
                     return RedirectToAction("Error");
                 }
 
-                return View();
+                return View(employee);
             }
         }
 
