@@ -8,7 +8,7 @@ namespace HRM_MVC.Controllers
         public IActionResult Index()
         {
             HttpContext.Session.Remove(KeyConstants.ACCOUNT_KEY);
-            return View();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

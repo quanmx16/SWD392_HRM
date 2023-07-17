@@ -19,10 +19,10 @@ namespace HRM_MVC.Controllers
         private readonly HRM_SWD392Context _context;
         private readonly IEmployeeRepository employeeRepository;
 
-        public EmployeesController(HRM_SWD392Context context)
+        public EmployeesController(HRM_SWD392Context context, IEmployeeRepository employeeRepository)
         {
             _context = context;
-            employeeRepository = new EmployeeRepository();
+            this.employeeRepository = employeeRepository;
         }
 
         // GET: Employees
@@ -31,7 +31,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -54,7 +54,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -79,7 +79,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -101,7 +101,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -137,7 +137,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -199,7 +199,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -243,7 +243,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
@@ -270,7 +270,7 @@ namespace HRM_MVC.Controllers
             var user = AuthorAuthen();
             if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Error");
             }
             else
             {
