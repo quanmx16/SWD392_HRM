@@ -52,7 +52,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null)
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -69,7 +69,7 @@ namespace HRM_MVC.Controllers
                     return RedirectToAction("Error");
                 }
 
-                return View(employee);
+                return View();
             }
         }
 
