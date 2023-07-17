@@ -4,16 +4,16 @@
 @{
 }
 <div style="text-align: center;">
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
+    <form asp-action="Index" asp-controller="Employees" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">List Employees</button>
     </form>
 
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
+    <form asp-controller="Attendence" asp-action="Index" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">Check Attendence</button>
     </form>
 
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
+    <form asp-action="Create" asp-controller="Employees" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">Create new Employee</button>
     </form>
 
     <form action="/employees" style="display: inline-block;">

@@ -19,6 +19,7 @@ namespace DataAccess.EmployeeRepositories
         Employee GetEmployeeById(string id);
         Employee? GetEmployeeByEmail(string email, string password);
         List<Employee> GetHROrHRM();
+        List<Employee> GetHRM();
         List<Employee> GetAll();
         List<Employee> Search(string search);
         bool RemoveEmployee(string id);
@@ -52,7 +53,6 @@ namespace DataAccess.EmployeeRepositories
                     employee.DayOne = DateTime.Now;
                 }
                 employee.EmployeeId = id;
-                employee = TrimData(employee);
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
                 return true;
@@ -70,7 +70,6 @@ namespace DataAccess.EmployeeRepositories
                 var emp = _context.Employees.Find(employee.EmployeeId);
                 if (emp != null)
                 {
-                    employee = TrimData(employee);
                     _context.Entry(emp).State = EntityState.Detached;
                     _context.Entry(employee).State = EntityState.Modified;
                     _context.SaveChanges();
@@ -94,25 +93,41 @@ namespace DataAccess.EmployeeRepositories
         }
         public List<Employee> GetHROrHRM()
         {
-            return _context.Employees.Where(x => x.Role == "HR" || x.Role == "HR Manager").ToList();
+            return _context.Employees.Where(x => x.Role.Trim() == "HR" || x.Role.Trim() == "HRManager").ToList();
         }
 
+        public List<Employee> GetHRM()
+        {
+            return _context.Employees.Where(x => x.Role.Trim() == "HRManager").ToList();
+        }
         public Employee? GetEmployeeByEmail(string email, string password)
         {
             var employee = _context.Employees.Where(x => x.Email.Equals(email) && x.Password.Equals(password) && (x.LastDay == null || x.LastDay > DateTime.Now)).FirstOrDefault();
             if (employee != null)
             {
-                return employee;
+                return TrimData(employee);
             }
             return null;
         }
         public List<Employee> GetAll()
         {
-            return _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => x.LastDay == null || x.LastDay > DateTime.Now).ToList();
+            List<Employee> lst = new List<Employee>();
+            var lstEmps = _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => x.LastDay == null || x.LastDay > DateTime.Now).ToList();
+            foreach (var emp in lstEmps)
+            {
+                lst.Add(TrimData(emp));
+            }
+            return lst;
         }
         public List<Employee> Search(string search)
         {
-            return _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => (x.LastDay == null || x.LastDay > DateTime.Now) && (x.EmplyeeName.ToLower().Contains(search.ToLower()) || x.EmployeeId.ToLower().Equals(search.ToLower()))).ToList();
+            List<Employee> lst = new List<Employee>();
+            var lstEmps = _context.Employees.Include(e => e.Department).Include(e => e.Manager).Where(x => (x.LastDay == null || x.LastDay > DateTime.Now) && (x.EmplyeeName.ToLower().Contains(search.ToLower()) || x.EmployeeId.ToLower().Equals(search.ToLower()))).ToList();
+            foreach (var emp in lstEmps)
+            {
+                lst.Add(TrimData(emp));
+            }
+            return lst;
         }
         public bool RemoveEmployee(string id)
         {

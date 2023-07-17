@@ -4,6 +4,7 @@ using DataAccess.EmpResignationRequestsRepositories;
 using Microsoft.EntityFrameworkCore;
 using Model.Data;
 using Prn221_group_project.Middleware;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ builder.Services.AddDbContext<HRM_SWD392Context>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("HRM_SWD392"));
 });
 builder.Services.AddSession();
+
+//builder.Services.AddControllers().AddJsonOptions(x =>
+//                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmpRequestLeaveRepository, EmpRequestLeaveRepository>();
 builder.Services.AddScoped<IEmpResignationRequestsRepository, EmpResignationRequestsRepository>();
