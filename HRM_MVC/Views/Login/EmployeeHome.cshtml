@@ -1,28 +1,14 @@
-@*
+od@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <div style="display: flex; flex-direction: column; align-items: center;">
-    <form asp-action="Details" asp-controller="Employees" style="margin-bottom: 10px;">
+    <form asp-action="Details" asp-controller="Employees" method="get" style="margin-bottom: 10px;">
         <button type="submit" class="btn btn-secondary btn-Attendence" style="width: 500px;">My profile</button>
     </form>
 
-    <form asp-action="ViewAttendence" asp-controller="Attendence" method="get" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px;">View Attendence</button>
-    </form>
-
-    <form asp-action="Create" asp-controller="EmpLeaveRequests" method="get" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create leave request</button>
-    </form>
-
-    <form asp-action="Create" asp-controller="EmpResignationRequests" method="get" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create resignation requests</button>
-    </form>
-
-    <form asp-action="Create" asp-controller="EmpUpdateAttendanceRequests" method="get" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create attendance requests</button>
-    </form>
+    
 </div>
 
 
