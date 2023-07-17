@@ -60,13 +60,13 @@ namespace HRM_MVC.Controllers
             {
                 if (id == null || _context.Employees == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 var employee = employeeRepository.GetEmployeeById(id);
                 if (employee == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 return View(employee);
@@ -114,7 +114,7 @@ namespace HRM_MVC.Controllers
                     }
                     else
                     {
-                        return NotFound();
+                        return RedirectToAction("Error");
                     }
                 }
                 List<string> roles = new List<string>
@@ -127,7 +127,7 @@ namespace HRM_MVC.Controllers
                 ViewData["Roles"] = new SelectList(roles, employee.Role);
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                 ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-                return View(employee);
+                return RedirectToAction("Index");
             }
         }
 
@@ -143,13 +143,13 @@ namespace HRM_MVC.Controllers
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 var employee = employeeRepository.GetEmployeeById(id);
                 if (employee == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace HRM_MVC.Controllers
             {
                 if (id != employee.EmployeeId.Trim())
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 if (ModelState.IsValid)
@@ -203,16 +203,16 @@ namespace HRM_MVC.Controllers
                     var check = employeeRepository.UpdateEmployee(employee);
                     if (check)
                     {
-                        return RedirectToAction("Create");
+                        return RedirectToAction("Index");
                     }
                     else
                     {
-                        return NotFound();
+                        return RedirectToAction("Error");
                     }
                 }
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                 ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-                return View(employee);
+                return RedirectToAction("Index");
             }
         }
 
@@ -228,13 +228,13 @@ namespace HRM_MVC.Controllers
             {
                 if (id == null || _context.Employees == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 var employee = employeeRepository.GetEmployeeById(id);
                 if (employee == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Error");
                 }
 
                 return View(employee);
@@ -255,10 +255,10 @@ namespace HRM_MVC.Controllers
             {
                 if (_context.Employees == null)
                 {
-                    return Problem("Entity set 'HRM_SWD392Context.Employees'  is null.");
+                    return RedirectToAction("Error");
                 }
                 employeeRepository.RemoveEmployee(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
         }
         private Employee AuthorAuthen()
@@ -272,6 +272,11 @@ namespace HRM_MVC.Controllers
             {
                 return loginAccount.Employee;
             }
+        }
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

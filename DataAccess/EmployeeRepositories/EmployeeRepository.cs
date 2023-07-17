@@ -52,6 +52,7 @@ namespace DataAccess.EmployeeRepositories
                     employee.DayOne = DateTime.Now;
                 }
                 employee.EmployeeId = id;
+                employee = TrimData(employee);
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
                 return true;
@@ -69,6 +70,7 @@ namespace DataAccess.EmployeeRepositories
                 var emp = _context.Employees.Find(employee.EmployeeId);
                 if (emp != null)
                 {
+                    employee = TrimData(employee);
                     _context.Entry(emp).State = EntityState.Detached;
                     _context.Entry(employee).State = EntityState.Modified;
                     _context.SaveChanges();
@@ -133,6 +135,21 @@ namespace DataAccess.EmployeeRepositories
             {
                 return false;
             }
+        }
+        private Employee TrimData(Employee employee)
+        {
+            employee.EmployeeId = employee.EmployeeId?.Trim();
+            employee.EmplyeeName = employee.EmplyeeName?.Trim();
+            employee.Email = employee.Email?.Trim();
+            employee.Password = employee.Password?.Trim();
+            employee.Role = employee.Role?.Trim();
+            employee.DepartmentId = employee.DepartmentId?.Trim();
+            employee.Phone = employee.Phone?.Trim();
+            employee.Address = employee.Address?.Trim();
+            employee.TaxCode = employee.TaxCode?.Trim();
+            employee.Level = employee.Level?.Trim();
+            employee.ManagerId = employee.ManagerId?.Trim();
+            return employee;
         }
     }
 }
