@@ -4,6 +4,7 @@ using Model.Models;
 using Model.Data;
 using DataAccess.EmployeeRepositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HRM_MVC.Controllers
 {
@@ -33,7 +34,7 @@ namespace HRM_MVC.Controllers
                     }
                     ViewData["LeaveRequest"] = new SelectList(LeaveRequests, "RequestID");
                 }
-            return View("/HRManager/HRLeaveRequest");
+            return View(list);
         }
         public IActionResult ResignationRequest()
         {

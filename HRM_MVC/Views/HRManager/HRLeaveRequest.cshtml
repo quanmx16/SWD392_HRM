@@ -1,7 +1,7 @@
 ﻿@model List<Model.Models.LeaveRequest>
 
 @{
-    ViewData["LeaveRequest"] = "LeaveRequest";
+    ViewData["LeaveRequest"] = "HRLeaveRequest";
 }
 
 <h1>Leave Request</h1>
@@ -19,7 +19,6 @@
             <th>
                 @Html.DisplayNameFor(model => model[0].Reason)
             </th>
-           
             <th>
                 @Html.DisplayNameFor(model => model[0].Employee.EmplyeeName)
             </th>
