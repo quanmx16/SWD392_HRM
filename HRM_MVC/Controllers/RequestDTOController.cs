@@ -18,78 +18,84 @@ namespace HRM_MVC.Controllers
             _requestRepository = new RequestRepository(_context,_employeeRepository);
            
         }
-        public IActionResult ViewAllHRRequest() 
+        public IActionResult HRLeaveRequest() 
         {
-           List<RequestDTO> list= _requestRepository.GetAllHRRequest();
+           List<RequestDTO> list= _requestRepository.GetAllHRRequest(); 
+            List<LeaveRequest> LeaveRequests = new List<LeaveRequest>();
             if (list.Count > 0)
             {
-                List<ChangeWorkDepartmentRequest> changeWorkDepartmentRequests= new List<ChangeWorkDepartmentRequest>();
-                List<LeaveRequest> LeaveRequests = new List<LeaveRequest>();
-                List<Otrequest> Otrequests = new List<Otrequest>();
-                List<ResignationRequest> resignationRequests = new List<ResignationRequest>();
-                List<TaxRequest> TaxRequest = new List<TaxRequest>();
-                List<UpdateEmployeeInforRequest> UpdateEmployeeInforRequests = new List<UpdateEmployeeInforRequest>();
+               
                 foreach (RequestDTO request in list)
                 {
-                    String type = request.Typename;
-                    switch (type)
-                    {
-                        case "ChangeWorkDepartmentRequest":
-                            {
-                            changeWorkDepartmentRequests.Add(request.ChangeWorkDepartmentRequest); break;
-                            }
-                        case "LeaveRequest":
-                            {
-                                LeaveRequests.Add(request.LeaveRequest); break;
-
-                            }
-                        case "Otrequest":
-                            {
-                                Otrequests.Add(request.Otrequest); break;
-
-                            }
-                        case "ResignationRequest":
-                            {
-                                resignationRequests.Add(request.ResignationRequest); break;
-
-                            }
-                        case "TaxRequest":
-                            {
-                                TaxRequest.Add(request.TaxRequest); break;
-
-                            }
-                        case "UpdateEmployeeInforRequest":
-                            {
-                                UpdateEmployeeInforRequests.Add(request.UpdateEmployeeInforRequest); break;
-                            }
+                    if (request.Typename.Equals("LeaveRequest")){
+  LeaveRequests.Add(request.LeaveRequest); break;
                     }
-                    ViewData["ChangeWorkDepartmentRequest"] = new SelectList(changeWorkDepartmentRequests, "RequestID");
+                           
+                    }
 
                     ViewData["LeaveRequest"] = new SelectList(LeaveRequests, "RequestID");
-                    ViewData["Otrequest"] = new SelectList(Otrequests, "RequestID");
-                    ViewData["ResignationRequest"] = new SelectList(resignationRequests, "RequestID");
-                    ViewData["TaxRequest"] = new SelectList(TaxRequest, "RequestID");
-                    ViewData["UpdateEmployeeInforRequest"] = new SelectList(UpdateEmployeeInforRequests, "RequestID");
 
                 }
-            }
-            return View();
+            return View(LeaveRequests);
         }
-      /*  public async Task<IActionResult> ResponseRequest (string type, RequestDTO requestDTO)
+        public IActionResult ResignationRequest()
         {
-            if(type==null || id == null)
+            List<RequestDTO> list = _requestRepository.GetAllHRRequest();
+            List<ResignationRequest> ResignationRequests = new List<ResignationRequest>();
+            if (list.Count > 0)
             {
-                return NotFound();
-            }
-            var requests = "";
-            switch(type)
-            {
-                case "ChangeWorkDepartmentRequest":
+
+                foreach (RequestDTO request in list)
+                {
+                    if (request.Typename.Equals("ResignationRequest"))
                     {
-                        return View(requestDTO.ChangeWorkDepartmentRequest);
+                        ResignationRequests.Add(request.ResignationRequest); break;
                     }
-          
+
+                }
+
+                ViewData["ResignationRequest"] = new SelectList(ResignationRequests, "RequestID");
+
             }
-        }*/
+            return View(ResignationRequests);
+        }
+        public IActionResult UpdateEmployeeInforRequest()
+        {
+            List<RequestDTO> list = _requestRepository.GetAllHRRequest();
+            List<UpdateEmployeeInforRequest> UpdateEmployeeInforRequests = new List<UpdateEmployeeInforRequest>();
+            if (list.Count > 0)
+            {
+
+                foreach (RequestDTO request in list)
+                {
+                    if (request.Typename.Equals("UpdateEmployeeInforRequest"))
+                    {
+                        UpdateEmployeeInforRequests.Add(request.UpdateEmployeeInforRequest); break;
+                    }
+
+                }
+
+                ViewData["UpdateEmployeeInforRequest"] = new SelectList(UpdateEmployeeInforRequests, "RequestID");
+
+            }
+            return View(UpdateEmployeeInforRequests);
+        }
+
+        /*  public async Task<IActionResult> ResponseRequest (string type, RequestDTO requestDTO)
+          {
+              if(type==null || id == null)
+              {
+                  return NotFound();
+              }
+              var requests = "";
+              switch(type)
+              {
+                  case "ChangeWorkDepartmentRequest":
+                      {
+                          return View(requestDTO.ChangeWorkDepartmentRequest);
+                      }
+
+              }
+          }*/
     }
 }

@@ -1,0 +1,67 @@
+﻿@model List<Model.Models.LeaveRequest>
+
+@{
+    ViewData["LeaveRequest"] = "LeaveRequest";
+}
+
+<h1>Leave Request</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DateOff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DaysLeave)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Hr)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DaysLeave)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hr.EmployeeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
