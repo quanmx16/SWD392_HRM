@@ -29,7 +29,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Index(string search)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -52,7 +52,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null)
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -69,7 +69,7 @@ namespace HRM_MVC.Controllers
                     return RedirectToAction("Error");
                 }
 
-                return View(employee);
+                return View();
             }
         }
 
@@ -77,7 +77,7 @@ namespace HRM_MVC.Controllers
         public IActionResult Create()
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -99,7 +99,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Create([Bind("EmployeeId,EmplyeeName,DateOfBirth,Gender,Email,Password,Role,DepartmentId,Phone,Address,Salary,TaxCode,Level,ManagerId,DayOne,LastDay")] Employee employee)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -135,7 +135,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -173,7 +173,18 @@ namespace HRM_MVC.Controllers
                     };
                     ViewData["Roles"] = new SelectList(roles, "RoleName", "RoleName", employee.Role);
                     ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    if (employee.Role.Trim() == Roles.ROLE_HR)
+                    {
+                        ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    }
+                    else if (employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+                    {
+                        ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    }
+                    else
+                    {
+                        ViewData["ManagerId"] = null;
+                    }
                     return View(employee);
                 }
             }
@@ -187,7 +198,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Edit(string id, [Bind("EmployeeId,EmplyeeName,DateOfBirth,Gender,Email,Password,Role,DepartmentId,Phone,Address,Salary,TaxCode,Level,ManagerId,DayOne,LastDay")] Employee employee)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -211,7 +222,18 @@ namespace HRM_MVC.Controllers
                     }
                 }
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                if (employee.Role.Trim() == Roles.ROLE_HR)
+                {
+                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                }
+                else if (employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+                {
+                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                }
+                else
+                {
+                    ViewData["ManagerId"] = null;
+                }
                 return RedirectToAction("Index");
             }
         }
@@ -220,7 +242,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -247,7 +269,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = AuthorAuthen();
-            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            if (user == null || user.Role.Trim().Equals(Roles.ROLE_EMPLOYEE))
             {
                 return RedirectToAction("Index", "Login");
             }
