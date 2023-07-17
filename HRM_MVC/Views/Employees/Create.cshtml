@@ -63,7 +63,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Role" class="control-label">Role</label>
-                    <select asp-for="Role">
+                    <select asp-for="Role" class="form-control">
                         @for (int i = 0; i < 3; i++)
                         {
                             <option value="@roles[i]">@roles[i]</option>
