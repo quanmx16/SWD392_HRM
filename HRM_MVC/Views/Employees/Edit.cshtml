@@ -63,8 +63,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Role" class="control-label">Role</label>
-                    <input asp-for="Role" class="form-control" />
-                    <span asp-validation-for="Role" class="text-danger"></span>
+                    @*<select asp-for="Role">
+                        @for (int i = 0; i < 3; i++)
+                        {
+                            if (roles[i].Equals(Model.Role))
+                            {
+                                <option value="@i" selected>
+                                    @i
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@roles[i]">@roles[i]</option>
+                            }
+                        }
+                    </select>*@
+                    <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>
                 </div>
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label">Department ID</label>
@@ -103,88 +117,9 @@
             <div class="col-12 mt-3 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>
-<<<<<<< HEAD
         </div>
     </form>
-=======
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label">Role</label>
-                <select asp-for="Role">
-                    @foreach(string s in roles)
-                    {
-                        if(s == Model.Role)
-                        {
-                            <option value="@s" selected="selected">@s</option>
-                        }
-                        else{
-                            <option value="@s">@s</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
-                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Salary" class="control-label"></label>
-                <input asp-for="Salary" class="form-control" />
-                <span asp-validation-for="Salary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaxCode" class="control-label"></label>
-                <input asp-for="TaxCode" class="form-control" />
-                <span asp-validation-for="TaxCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Level" class="control-label"></label>
-                <input asp-for="Level" class="form-control" />
-                <span asp-validation-for="Level" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ManagerId" class="control-label"></label>
-                <select asp-for="ManagerId" class="form-control" asp-items="ViewBag.ManagerId"></select>
-                <span asp-validation-for="ManagerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DayOne" class="control-label"></label>
-                <input asp-for="DayOne" class="form-control" />
-                <span asp-validation-for="DayOne" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastDay" class="control-label"></label>
-                <input asp-for="LastDay" class="form-control" />
-                <span asp-validation-for="LastDay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
->>>>>>> 3fb13385fb6642de5cc8b98cc6655c790403c8ff
 </div>
-
 <div class="row mt-3">
     <div class="col-12 d-flex justify-content-end">
         <a asp-action="Index">Back to List</a>

@@ -124,7 +124,7 @@ namespace HRM_MVC.Controllers
                     Roles.ROLE_HR
                 };
 
-                ViewData["Roles"] = new SelectList(roles,employee.Role);
+                ViewData["Roles"] = new SelectList(roles, employee.Role);
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                 ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
                 return View(employee);
@@ -153,6 +153,25 @@ namespace HRM_MVC.Controllers
                 }
                 else
                 {
+                    List<DropDownRole> roles = new List<DropDownRole>
+                    {
+                        new DropDownRole
+                        {
+                            RoleName = Roles.ROLE_EMPLOYEE,
+                            Id = 1
+                        },
+                        new DropDownRole
+                        {
+                            RoleName = Roles.ROLE_HR,
+                            Id = 2
+                        },
+                        new DropDownRole
+                        {
+                            RoleName = Roles.ROLE_HR_MANAGER,
+                            Id = 3
+                        }
+                    };
+                    ViewData["Roles"] = new SelectList(roles, "RoleName", "RoleName", employee.Role);
                     ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                     ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
                     return View(employee);
