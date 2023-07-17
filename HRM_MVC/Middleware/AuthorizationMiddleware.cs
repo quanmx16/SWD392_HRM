@@ -16,8 +16,20 @@ namespace Prn221_group_project.Middleware
             if(loginAccount != null)
             {
                 Console.WriteLine("OK");
+                await _next(context);
+
             }
-            await _next(context);
+            else
+            {
+                if (context.Request.Path.Value.Contains("Login"))
+                {
+                    await _next(context);
+                }
+                else
+                {
+                    context.Response.Redirect("Login");
+                }
+            }
         }
     }
 
