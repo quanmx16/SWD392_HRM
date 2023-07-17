@@ -3,27 +3,26 @@
 *@
 @{
 }
-<div style="text-align: center;">
-    
-    <form asp-action="Details" asp-controller="Employees"  style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary btn-Attendence">My profile</button>
+<div style="display: flex; flex-direction: column; align-items: center;">
+    <form asp-action="Details" asp-controller="Employees" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary btn-Attendence" style="width: 500px;">My profile</button>
     </form>
 
-    <form asp-action="ViewAttendence" asp-controller="Attendence" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">View Attendence</button>
+    <form asp-action="ViewAttendence" asp-controller="Attendence" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">View Attendence</button>
     </form>
 
-    <form asp-action="Create" asp-controller="EmpLeaveRequests" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee create leave request</button>
+    <form asp-action="Create" asp-controller="EmpLeaveRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create leave request</button>
     </form>
 
-    <form asp-action="Create" asp-controller="EmpResignationRequests" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee create resignation requests</button>
+    <form asp-action="Create" asp-controller="EmpResignationRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create resignation requests</button>
     </form>
 
-    <form asp-action="Create" asp-controller="EmpUpdateAttendanceRequests" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee create attendance requests</button>
+    <form asp-action="Create" asp-controller="EmpUpdateAttendanceRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px;">Employee create attendance requests</button>
     </form>
-
-   
 </div>
+
+
