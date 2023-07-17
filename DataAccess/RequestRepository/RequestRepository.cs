@@ -5,6 +5,7 @@ using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace DataAccess.RequestRepository
 {
     public interface IRequestRepository
     {
-        List<RequestDTO> GetAllRequest();
+   /*     List<RequestDTO> GetAllRequest();*/
         List<RequestDTO> GetAllHRRequest();
         bool ResponseRequest(RequestDTO requestDTO);
     }
@@ -36,23 +37,22 @@ namespace DataAccess.RequestRepository
                 this._employeeRepository= new EmployeeRepository();
             }
         }
-        public List<RequestDTO> GetAllRequest()
+        /*public List<RequestDTO> GetAllRequest()
         {
            if(this._context != null)
             {
                 List<RequestDTO> listRequests= new List<RequestDTO>();
                 List<ChangeWorkDepartmentRequest> changeWorkDepartmentRequests = new List<ChangeWorkDepartmentRequest>();
-                changeWorkDepartmentRequests=_context.ChangeWorkDepartmentRequests.ToList();
-                List<LeaveRequest> LeaveRequest = new List<LeaveRequest>();
-                LeaveRequest = _context.LeaveRequests.ToList();
+                changeWorkDepartmentRequests = _context.ChangeWorkDepartmentRequests.Include(c => c.Hr).ToList();               List<LeaveRequest> LeaveRequest = new List<LeaveRequest>();
+                LeaveRequest = _context.LeaveRequests.Include(c => c.Hr).ToList();
                 List<Otrequest> otrequests = new List<Otrequest>();
-                otrequests = _context.Otrequests.ToList();
+                otrequests = _context.Otrequests.Include(t => t.Employee).ToList();
                 List<ResignationRequest> ResignationRequest = new List<ResignationRequest>();
-                ResignationRequest = _context.ResignationRequests.ToList();
+                ResignationRequest = _context.ResignationRequests.Include(t => t.Employee).ToList();
                 List<TaxRequest> TaxRequest = new List<TaxRequest>();
-                TaxRequest = _context.TaxRequests.ToList();
+                TaxRequest = _context.TaxRequests.Include(t => t.Employee).ToList();
                 List<UpdateEmployeeInforRequest> UpdateEmployeeInforRequest = new List<UpdateEmployeeInforRequest>();
-                UpdateEmployeeInforRequest = _context.UpdateEmployeeInforRequests.ToList();
+                UpdateEmployeeInforRequest = _context.UpdateEmployeeInforRequests.Include(t => t.Employee).ToList();
                 if (changeWorkDepartmentRequests.Count > 0)
                 {
                     foreach (ChangeWorkDepartmentRequest request in changeWorkDepartmentRequests)
@@ -103,7 +103,7 @@ namespace DataAccess.RequestRepository
                 if (listRequests.Count > 0) return listRequests;
             }
             return null;
-        }
+        }*/
 
         public List<RequestDTO> GetAllHRRequest()
         {
@@ -111,17 +111,16 @@ namespace DataAccess.RequestRepository
             {   List<Employee> listHR= new List<Employee>();
                 List<RequestDTO> listRequests = new List<RequestDTO>();
                 List<ChangeWorkDepartmentRequest> changeWorkDepartmentRequests = new List<ChangeWorkDepartmentRequest>();
-                changeWorkDepartmentRequests = _context.ChangeWorkDepartmentRequests.ToList();
-                List<LeaveRequest> LeaveRequest = new List<LeaveRequest>();
-                LeaveRequest = _context.LeaveRequests.ToList();
+                changeWorkDepartmentRequests = _context.ChangeWorkDepartmentRequests.Include(c => c.Hr).ToList(); List<LeaveRequest> LeaveRequest = new List<LeaveRequest>();
+                LeaveRequest = _context.LeaveRequests.Include(c => c.Hr).ToList();
                 List<Otrequest> otrequests = new List<Otrequest>();
-                otrequests = _context.Otrequests.ToList();
+                otrequests = _context.Otrequests.Include(t => t.Employee).ToList();
                 List<ResignationRequest> ResignationRequest = new List<ResignationRequest>();
-                ResignationRequest = _context.ResignationRequests.ToList();
+                ResignationRequest = _context.ResignationRequests.Include(t => t.Employee).ToList();
                 List<TaxRequest> TaxRequest = new List<TaxRequest>();
-                TaxRequest = _context.TaxRequests.ToList();
+                TaxRequest = _context.TaxRequests.Include(t => t.Employee).ToList();
                 List<UpdateEmployeeInforRequest> UpdateEmployeeInforRequest = new List<UpdateEmployeeInforRequest>();
-                UpdateEmployeeInforRequest = _context.UpdateEmployeeInforRequests.ToList();
+                UpdateEmployeeInforRequest = _context.UpdateEmployeeInforRequests.Include(t => t.Employee).ToList();
                 if (changeWorkDepartmentRequests.Count > 0)
                 {
                     foreach (ChangeWorkDepartmentRequest request in changeWorkDepartmentRequests)

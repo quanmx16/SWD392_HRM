@@ -7,36 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HRM_MVC.Controllers
 {
-    public class RequestDTOController : Controller
+    public class RequestController : Controller
     {
         protected IRequestRepository _requestRepository;
         protected readonly HRM_SWD392Context _context;
         protected readonly IEmployeeRepository _employeeRepository;
-        public RequestDTOController()
+        public RequestController()
         { _context=new HRM_SWD392Context();
             _employeeRepository=new EmployeeRepository(_context);
             _requestRepository = new RequestRepository(_context,_employeeRepository);
            
         }
-        public IActionResult HRLeaveRequest() 
+        public async Task<IActionResult> HRLeaveRequest() 
         {
            List<RequestDTO> list= _requestRepository.GetAllHRRequest(); 
             List<LeaveRequest> LeaveRequests = new List<LeaveRequest>();
-            if (list.Count > 0)
-            {
-               
+            if (list.Count!=null)
+            {  
                 foreach (RequestDTO request in list)
                 {
-                    if (request.Typename.Equals("LeaveRequest")){
-  LeaveRequests.Add(request.LeaveRequest); break;
+                    if (request.Typename.Equals("LeaveRequest"))
+                    {
+                        LeaveRequests.Add(request.LeaveRequest); break;
+                    }          
                     }
-                           
-                    }
-
                     ViewData["LeaveRequest"] = new SelectList(LeaveRequests, "RequestID");
-
                 }
-            return View(LeaveRequests);
+            return View("/HRManager/HRLeaveRequest");
         }
         public IActionResult ResignationRequest()
         {
