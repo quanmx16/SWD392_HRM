@@ -13,7 +13,7 @@ namespace Prn221_group_project.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(context.Session, KeyConstants.ACCOUNT_KEY);
-            if(loginAccount != null)
+            if (loginAccount != null)
             {
                 Console.WriteLine("OK");
                 await _next(context);

@@ -15,7 +15,7 @@ namespace HRM_MVC.SessionManager
         }
         public static T? GetObjectFromSession<T>(ISession session, string key)
         {
-           string? value = session.GetString(key);
+            string? value = session.GetString(key);
             return value == null ? default(T) : JsonSerializer.Deserialize<T>(value);
         }
     }

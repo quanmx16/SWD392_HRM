@@ -1,0 +1,486 @@
+﻿@model HRManagerModel
+
+@{
+    ViewData["Title"] = "HRRequests";
+}
+
+
+
+<h1>HR Request</h1>
+@{
+    var changeWorkDepartmentRequests = new List<Model.Models.ChangeWorkDepartmentRequest>();
+    var leaveRequests = new List<Model.Models.LeaveRequest>();
+     var otrequests = new List<Model.Models.Otrequest>();
+    var resignationRequests = new List<Model.Models.ResignationRequest>();
+     var taxRequests = new List<Model.Models.TaxRequest>();
+    var updateEmployeeInforRequests = new List<Model.Models.UpdateEmployeeInforRequest>();
+
+}
+@foreach (Model.Models.RequestDTO request in Model.listRequests)
+{
+    switch (request.Typename)
+    {
+        case "ChangeWorkDepartmentRequest":
+            {
+                changeWorkDepartmentRequests.Add(request.ChangeWorkDepartmentRequest);
+                break;
+            }
+        case "LeaveRequest":
+            {
+                leaveRequests.Add(request.LeaveRequest);
+                break;
+            }
+        case "Otrequest":
+            {
+                otrequests.Add(request.Otrequest);
+                break;
+            }
+        case "ResignationRequest":
+            {
+                resignationRequests.Add(request.ResignationRequest);
+                break;
+            }
+        case "TaxRequest":
+            {
+                taxRequests.Add(request.TaxRequest);
+                break;
+            }
+        case "UpdateEmployeeInforRequest":
+            {
+                updateEmployeeInforRequests.Add(request.UpdateEmployeeInforRequest);
+                break;
+            }
+
+    }
+   
+}
+<h2>Change Work Department Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EmployeeName
+            </th>
+            <th>
+               CurrentDepartment Name
+            </th>
+            <th>
+                DepartmentMoveTo Name
+            </th>
+            <th>
+               DateCreateRequest
+            </th>
+            <th>
+               DateWantToMove
+            </th>
+            <th>
+               DateMoveToNewDepartment
+            </th>
+            <th>
+               ReasonForMoving
+            </th>
+            <th>
+              DateResponeRequest
+            </th>
+            <th>
+               ResponseRequest
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in changeWorkDepartmentRequests) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentDepartment.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentMoveTo.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreateRequest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateWantToMove)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateMoveToNewDepartment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReasonForMoving)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateResponeRequest)
+                </td>
+
+                @if (item.ResponseRequest!=true)
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="ChangeWorkDepartmentRequest">Approve this</a> |
+                    </td>
+                }else {
+                <td>Approved</td>
+                }
+
+
+
+        </tr>
+}
+    </tbody>
+</table>
+<h2>Leave Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+           <th>Employee Name</th>
+            <th>Date Off</th>
+            <th>Days Leave</th>
+            <th>Reason</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in leaveRequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaysLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+
+                @if (!item.Status.Equals("True"))
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="LeaveRequest">Approve this</a> |
+                    </td>
+                }
+                else
+                {
+                    <td>Approved</td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+<h2>OT Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+           <th>Date Request</th>
+           <th>Time Start OT</th>
+           <th>Time End OT</th>
+           <th>Task</th>
+           <th>Approve Date</th>
+           <th>Approved By</th>
+           <th>Comment</th>
+           <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in otrequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequest)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeStartOt)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeEndOt)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskOt)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Approver.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+                @if (!item.RequestStatus.Equals("Approved"))
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="Otrequest">Approve this</a> |
+                    </td>
+                } else{
+                <td>Approved</td>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Resignation Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Date Request</th>
+            <th>Last working date</th>
+            <th>Reason</th>
+            <th>Approve Date</th>
+            <th>Approved By</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in resignationRequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastWorkingDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Approver.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+
+                @if (!item.RequestStatus.Equals("True"))
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="ResignationRequest">Approve this</a> |
+                    </td>
+                }else {
+                <td>Approved</td>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+<h2>Tax Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Date Request</th>
+            <th>Tax Year</th>
+            <th>Total Income</th>
+            <th>Deductions</th>
+            <th>Taxable Income</th>
+            <th>Tax Amount</th>
+            <th>Approve Date</th>
+            <th>True By</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in taxRequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxYear)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalIncome)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Deductions)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.TaxableIncome)</td>
+                     <td>
+                    @Html.DisplayFor(modelItem => item.TaxAmount)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.TotalIncome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Approver.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+                @if (!item.RequestStatus.Equals("True"))
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="TaxRequest">Approve this</a> |
+                    </td>
+                }else {
+                <td>Approved</td>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+<h2>Update Information Request</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Role</th>
+             <th>Gender</th>
+              <th>Date Of Birth</th>
+               <th>Email</th>
+                <th>Password</th>
+                 <th>Department Name</th>
+                  <th>Phone</th>
+                   <th>Address</th>
+            <th>Salary</th>
+              <th>Tax Code</th>
+            <th>Level</th>
+            <th>Manager</th>
+             <th>Start Work</th>
+            <th>End Work</th>
+            <th>Approve Date</th>
+            <th>True By</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in updateEmployeeInforRequests)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                  <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxCode)
+                </td>
+                  <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                  <td>
+                        @Html.DisplayFor(modelItem => item.Manager.EmplyeeName)
+                </td>
+                  <td>
+                        @Html.DisplayFor(modelItem => item.DayOne)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Approver.EmplyeeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+                @if (!item.Status.Equals("True"))
+                {
+                    <td>
+                        <a asp-action="ApproveRequest" asp-route-id="@item.RequestId" asp-route-model="@Model" asp-route-type="UpdateEmployeeInforRequest">Approve this</a> |
+                    </td>
+                }
+                else
+                {
+                    <td>Approved</td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>

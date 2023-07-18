@@ -4,7 +4,6 @@ using DataAccess.EmpResignationRequestsRepositories;
 using Microsoft.EntityFrameworkCore;
 using Model.Data;
 using Prn221_group_project.Middleware;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

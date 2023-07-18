@@ -1,13 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Model.Data;
 using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utility;
 
 namespace DataAccess.LeaveRequestRepositories
 {
@@ -46,14 +39,14 @@ namespace DataAccess.LeaveRequestRepositories
         public async Task<bool> CreateLeaveRequest(LeaveRequest leaveRequest)
         {
             await _context.LeaveRequests.AddAsync(leaveRequest);
-           return await _context.SaveChangesAsync()>0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> Deny(int id)
         {
             var leaveRequest = await _context.LeaveRequests
                 .FirstOrDefaultAsync(m => m.RequestId == id);
-            if(leaveRequest == null)
+            if (leaveRequest == null)
             {
                 return false;
             }
@@ -81,7 +74,7 @@ namespace DataAccess.LeaveRequestRepositories
             return await _context.LeaveRequests
                 .Include(l => l.Employee)
                 .Include(l => l.Hr)
-                .Where(x=>x.Status=="Pending")
+                .Where(x => x.Status == "Pending")
                 .ToListAsync();
         }
     }

@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Data;
 using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.UpdateEmployeeInforRequestsRepositories
 {
     public interface IUpdateInforRequestsRepo
     {
         Task<List<UpdateEmployeeInforRequest>> GetAllRequests();
-        Task<bool> Approve(int  id);
+        Task<bool> Approve(int id);
         Task<bool> Deny(int id);
     }
 
@@ -26,7 +21,7 @@ namespace DataAccess.UpdateEmployeeInforRequestsRepositories
 
         public async Task<bool> Approve(int id)
         {
-            var requests= await _context.UpdateEmployeeInforRequests.FirstOrDefaultAsync(x=>x.RequestId == id);
+            var requests = await _context.UpdateEmployeeInforRequests.FirstOrDefaultAsync(x => x.RequestId == id);
             if (requests == null)
             {
                 return false;
@@ -34,7 +29,7 @@ namespace DataAccess.UpdateEmployeeInforRequestsRepositories
             requests.Status = "Approve";
             requests.ApproveDate = DateTime.Now;
             _context.UpdateEmployeeInforRequests.Update(requests);
-            return await _context.SaveChangesAsync()>0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> Deny(int id)
@@ -51,11 +46,11 @@ namespace DataAccess.UpdateEmployeeInforRequestsRepositories
 
         public async Task<List<UpdateEmployeeInforRequest>> GetAllRequests()
         {
-           return await _context.UpdateEmployeeInforRequests
-                .Include(u => u.Approver)
-                .Include(u => u.Employee)
-                .Where(u=>u.Status=="Pending")
-                .ToListAsync();
+            return await _context.UpdateEmployeeInforRequests
+                 .Include(u => u.Approver)
+                 .Include(u => u.Employee)
+                 .Where(u => u.Status == "Pending")
+                 .ToListAsync();
         }
 
     }

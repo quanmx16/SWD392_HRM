@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Model.Models
+﻿namespace Model.Models
 {
     public partial class UpdateEmployeeInforRequest
     {
@@ -29,5 +26,7 @@ namespace Model.Models
 
         public virtual Employee? Approver { get; set; }
         public virtual Employee Employee { get; set; } = null!;
+        public virtual Department? Department { get; set; }
+        public virtual Employee? Manager { get; set; }
     }
 }

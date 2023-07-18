@@ -2,9 +2,9 @@
 
 namespace HRM_MVC.Models
 {
-    public class EmpViewModel
+    public class HRManagerModel
     {
-        public IEnumerable<Employee> listEmp { get; set; }
+        public List<RequestDTO> listRequests { get; set; }
         public string search { get; set; }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.EmpRequestLeaveRepositories;
-using DataAccess.EmpResignationRequestsRepositories;
-using DataAccess.EmpUpdateAttendanceRequestRepositories;
+﻿using DataAccess.EmpUpdateAttendanceRequestRepositories;
 using HRM_MVC.Common;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
@@ -98,7 +92,7 @@ namespace HRM_MVC.Controllers
             updateAttendanceRequest.TimeIn = combinedDateTime;
 
 
-         
+
 
 
 
@@ -108,7 +102,7 @@ namespace HRM_MVC.Controllers
                 //ViewData["SuccessMessage"] = "resignation request created successfully.";
                 ViewData["SuccessMessage"] = "empUpdate Attendance request created successfully.";
                 return View(updateAttendanceRequest);
-                
+
             }
             catch (Exception ex)
             {
@@ -207,14 +201,14 @@ namespace HRM_MVC.Controllers
             {
                 _context.UpdateAttendanceRequests.Remove(updateAttendanceRequest);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UpdateAttendanceRequestExists(int id)
         {
-          return (_context.UpdateAttendanceRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
+            return (_context.UpdateAttendanceRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
         }
     }
 }

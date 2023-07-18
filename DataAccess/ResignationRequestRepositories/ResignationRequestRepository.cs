@@ -1,12 +1,5 @@
-﻿using DataAccess.ResignationRequestRepositories;
-using Microsoft.EntityFrameworkCore;
-using Model.Data;
+﻿using Model.Data;
 using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.ResignationRequestRepositories
 {
@@ -17,7 +10,7 @@ namespace DataAccess.ResignationRequestRepositories
         void UpdateResignationRequest(ResignationRequest resignationRequest);
     }
 
-    public class ResignationRequestRepository : IResignationRequestRepository 
+    public class ResignationRequestRepository : IResignationRequestRepository
     {
         protected readonly HRM_SWD392Context _context;
         public ResignationRequestRepository(HRM_SWD392Context context)
@@ -50,13 +43,13 @@ namespace DataAccess.ResignationRequestRepositories
         public void UpdateResignationRequest(ResignationRequest resignationRequest)
         {
             var request = GetResignationRequestById(resignationRequest.RequestId);
-            
-            if(request != null)
+
+            if (request != null)
             {
                 _context.ResignationRequests.Update(resignationRequest);
                 _context.SaveChanges();
             }
         }
     }
-    
+
 }

@@ -2,9 +2,6 @@
 using HRM_MVC.Common;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Model.Data;
 using Model.Models;
 
 namespace HRM_MVC.Controllers

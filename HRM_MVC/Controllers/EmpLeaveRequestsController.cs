@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.EmployeeRepositories;
 using DataAccess.EmpRequestLeaveRepositories;
 using HRM_MVC.Common;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using Model.Data;
 using Model.Models;
 
@@ -69,7 +63,7 @@ namespace HRM_MVC.Controllers
         public async Task<IActionResult> Create([Bind("DateOff,DaysLeave,Reason,Status,Comment")] LeaveRequest leaveRequest)
         {
             //hard code get emp id after login
-            
+
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
             string empId = loginAccount.Employee.EmployeeId;
 
@@ -85,7 +79,7 @@ namespace HRM_MVC.Controllers
             //    empRequestLeaveRepository.CreateRequestLeave(leaveRequest);
             //    return RedirectToAction(nameof(Index));
             //}
-           
+
 
             if (leaveRequest.DateOff.HasValue && leaveRequest.DateOff.Value < DateTime.Now)
             {
@@ -204,14 +198,14 @@ namespace HRM_MVC.Controllers
             {
                 _context.LeaveRequests.Remove(leaveRequest);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LeaveRequestExists(int id)
         {
-          return (_context.LeaveRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
+            return (_context.LeaveRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
         }
     }
 }

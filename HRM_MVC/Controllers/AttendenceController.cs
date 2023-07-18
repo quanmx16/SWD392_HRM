@@ -3,9 +3,7 @@ using DataAccess.EmployeeRepositories;
 using HRM_MVC.Common;
 using HRM_MVC.Models;
 using HRM_MVC.SessionManager;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Model.Models;
 using System.Globalization;
 

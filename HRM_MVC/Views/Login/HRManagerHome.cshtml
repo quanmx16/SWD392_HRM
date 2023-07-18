@@ -4,19 +4,7 @@
 @{
 }
 <div style="text-align: center;">
-    <form  asp-action="HRLeaveRequest" asp-controller="Request" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">HR Leave Request</button>
-    </form>
-
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
-    </form>
-
-    <form action="/employees" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Employee đi đâu đó</button>
-    </form>
-
-    <form asp-action="Index" asp-controller="Logout" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">Logout</button>
+    <form  asp-action="HRRequests" asp-controller="HRManager" method="get" style="display: inline-block;">
+        <button type="submit" class="btn btn-secondary">HR Request</button>
     </form>
 </div>

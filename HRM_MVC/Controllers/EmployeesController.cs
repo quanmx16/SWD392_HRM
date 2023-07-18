@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.EmployeeRepositories;
+﻿using DataAccess.EmployeeRepositories;
 using HRM_MVC.Common;
 using HRM_MVC.Models;
 using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Model.Data;
 using Model.Models;
 
@@ -58,7 +53,7 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                
+
                 var employee = employeeRepository.GetEmployeeById(user.EmployeeId);
                 if (employee == null)
                 {

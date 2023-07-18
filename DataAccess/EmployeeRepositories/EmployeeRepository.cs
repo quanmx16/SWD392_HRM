@@ -2,12 +2,6 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Model.Data;
 using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using Utility;
 
 namespace DataAccess.EmployeeRepositories
@@ -20,6 +14,7 @@ namespace DataAccess.EmployeeRepositories
         Employee? GetEmployeeByEmail(string email, string password);
         List<Employee> GetHROrHRM();
         List<Employee> GetHRM();
+        List<Employee> GetHR();
         List<Employee> GetAll();
         List<Employee> Search(string search);
         bool RemoveEmployee(string id);
@@ -99,6 +94,10 @@ namespace DataAccess.EmployeeRepositories
         public List<Employee> GetHRM()
         {
             return _context.Employees.Where(x => x.Role.Trim() == "HRManager").ToList();
+        }
+        public List<Employee> GetHR()
+        {
+            return _context.Employees.Where(x => x.Role.Trim() == "HR").ToList();
         }
         public Employee? GetEmployeeByEmail(string email, string password)
         {
