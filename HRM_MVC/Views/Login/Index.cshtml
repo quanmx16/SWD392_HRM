@@ -9,11 +9,11 @@
         <form asp-action="LoginAction" asp-controller="Login" method="post">
             <div style="margin-bottom: 10px;">
                 <label for="email">Email:</label>
-                <input type="text" name="email" id="email" value="@(ViewData["Email"]!=null? ViewData["Email"]:"")" style="width: 100%; padding: 5px;" />
+                <input type="text" name="email" id="email" value="@(ViewData["Email"]!=null? ViewData["Email"]:"")" style="width: 100%; padding: 5px; border-radius: 5px;" />
             </div>
             <div style="margin-bottom: 10px;">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" style="width: 100%; padding: 5px;" />
+                <input type="password" name="password" id="password" style="width: 100%; padding: 5px; border-radius: 5px;" />
             </div>
             @if (ViewData["LoginError"] != null)
             {
@@ -21,7 +21,7 @@
                 <br />
             }
             <div style="text-align: center;">
-                <input type="submit" value="Login" style="padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;" />
+                <input type="submit" value="Login" style="padding: 5px 10px; witdh: 500px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;" />
             </div>
         </form>
     </div>
