@@ -34,8 +34,8 @@ namespace DataAccess.RequestRepository
             }
         }
         public List<RequestDTO> GetAllHRRequest()
-        
-         {
+
+        {
             if (this._context != null)
             {
                 List<Employee> listHR = new List<Employee>();
@@ -178,7 +178,7 @@ namespace DataAccess.RequestRepository
                                 _context.Entry(request).State = EntityState.Detached;
                                 request.RequestStatus = "True";
                                 request.ApproverId = "3";
-                                request.ApproveDate= DateTime.Now;
+                                request.ApproveDate = DateTime.Now;
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();
                                 return true;
@@ -231,6 +231,11 @@ namespace DataAccess.RequestRepository
 
             }
             return false;
+        }
+
+        public bool ResponseRequest(RequestDTO requestDTO)
+        {
+            throw new NotImplementedException();
         }
     }
 
