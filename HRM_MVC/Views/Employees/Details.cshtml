@@ -4,105 +4,105 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 style="text-align: center;">Details</h1>
+<h1 style="text-align: center; color: #B70000">Details</h1>
 
-<div style="background-color: #f0f0f0; padding: 10px;">
+<div style="background-color: #f5f5f5; padding: 10px; max-width: 600px; margin: 0 auto; border-radius: 5px;">
     <h4>Employee</h4>
     <hr />
     <dl class="row" style="display: flex; justify-content: center;">
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.EmplyeeName)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.EmplyeeName)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.DateOfBirth)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Gender)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Gender)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Password)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Password)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Role)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Role)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Address)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Salary)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Salary)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.TaxCode)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.TaxCode)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Level)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Level)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.DayOne)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.DayOne)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.LastDay)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.LastDay)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Department)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Department.DepartmentId)
         </dd>
-        <dt class="col-sm-2" style="font-weight: bold;">
+        <dt class="col-sm-3" style="font-weight: bold;">
             @Html.DisplayNameFor(model => model.Manager)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Manager.EmployeeId)
         </dd>
     </dl>
 </div>
 <div style="text-align: center; padding: 10px;">
-    <a asp-action="Edit" asp-route-id="@Model?.EmployeeId" style="margin-right: 20px; padding: 5px 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 3px;">Edit</a>
-    <a asp-action="Index" style="padding: 5px 10px; background-color: #f44336; color: white; text-decoration: none; border-radius: 3px;">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.EmployeeId" style="padding: 6px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 10px; cursor: pointer; text-decoration: none;">Edit</a>
 </div>
+

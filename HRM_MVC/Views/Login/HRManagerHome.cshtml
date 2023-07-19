@@ -3,8 +3,12 @@
 *@
 @{
 }
-<div style="text-align: center;">
-    <form  asp-action="HRRequests" asp-controller="HRManager" method="get" style="display: inline-block;">
-        <button type="submit" class="btn btn-secondary">HR Request</button>
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70vh;">
+    <form  asp-action="HRRequests" asp-controller="HRManager" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">HR Request</button>
+    </form>
+
+    <form asp-action="Index" asp-controller="Logout" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">Logout</button>
     </form>
 </div>

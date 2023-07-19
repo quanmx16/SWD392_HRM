@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HRM_MVC.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
+<body style="background-color: #F2ACC6;">
+    <header style="background-color: #FFFFFF;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index">HRM_MVC</a>
@@ -26,13 +26,14 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="background-color: #FFFFFF;">
         <div class="container">
             &copy; 2023 - HRM_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

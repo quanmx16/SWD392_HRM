@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h4 style="color: #990099">Create</h4>
 
-<h4>LeaveRequest</h4>
+<h1 style="color: #B70000; text-align: center;">Leave Request</h1>
 @if (ViewData.ContainsKey("SuccessMessage"))
 {
     <div class="alert alert-success">@ViewData["SuccessMessage"]</div>
@@ -21,7 +21,7 @@
 
 <hr />
 <div style="display: flex; justify-content: center;">
-    <div style="border: 1px solid #ccc; padding: 20px; width: 500px;">
+    <div style="border: 1px solid #ccc; padding: 20px; width: 500px; background-color: #f5f5f5; border-radius: 5px;">
         <div class="row">
             <div class="col-md-12">
                 <form asp-action="Create">
@@ -30,18 +30,18 @@
                         <label asp-for="EmployeeId" class="control-label"></label>
                         <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
                     </div>*@
-                    <div class="form-group">
-                        <label asp-for="DateOff" class="control-label"></label>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label asp-for="DateOff" class="control-label">Date Off:</label>
                         <input asp-for="DateOff" type="date" class="form-control" />
                         <span asp-validation-for="DateOff" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="DaysLeave" class="control-label"></label>
+                    <div class="form-group style="margin-bottom: 10px;"">
+                        <label asp-for="DaysLeave" class="control-label">Days Leave:</label>
                         <input type="number" min="1"  asp-for="DaysLeave" class="form-control" />
                         <span asp-validation-for="DaysLeave" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Reason" class="control-label"></label>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label asp-for="Reason" class="control-label">Reason:</label>
                         <input asp-for="Reason" class="form-control" />
                         <span asp-validation-for="Reason" class="text-danger"></span>
                     </div>
@@ -49,13 +49,13 @@
                         <label asp-for="Hrid" class="control-label"></label>
                         <select asp-for="Hrid" class ="form-control" asp-items="ViewBag.Hrid"></select>
                     </div>*@
-                    <div class="form-group">
-                        <label asp-for="Status" class="control-label"></label>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label asp-for="Status" class="control-label">Status:</label>
                         <input asp-for="Status" class="form-control" />
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Comment" class="control-label"></label>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label asp-for="Comment" class="control-label">Comment:</label>
                         <input asp-for="Comment" class="form-control" />
                         <span asp-validation-for="Comment" class="text-danger"></span>
                     </div>
@@ -63,11 +63,6 @@
                         <input type="submit" value="Create" class="btn btn-primary" style="width: 100px;" />
                     </div>
                 </form>
-                <div class="text-right" style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                    <a asp-action="Index" style="padding: 5px 10px; background-color: #f44336; color: white; text-decoration: none; border-radius: 3px;">
-                        Back to List
-                    </a>
-                </div>
             </div>
         </div>
     </div>
