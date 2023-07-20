@@ -10,7 +10,7 @@ namespace DataAccess.RequestRepository
         /*     List<RequestDTO> GetAllRequest();*/
         List<RequestDTO> GetAllHRRequest();
         bool ResponseRequest(RequestDTO requestDTO);
-        bool ApproveRequest(int id, string type);
+        bool ApproveRequest(int id, string type, string approverId);
     }
 
     public class RequestRepository : IRequestRepository
@@ -112,7 +112,7 @@ namespace DataAccess.RequestRepository
             return new List<RequestDTO>();
         }
 
-        public bool ApproveRequest(int id, string type)
+        public bool ApproveRequest(int id, string type, string approverId)
         {
             if (id != null && type != null)
             {
@@ -141,7 +141,7 @@ namespace DataAccess.RequestRepository
                             if (request != null)
                             {
                                 _context.Entry(request).State = EntityState.Detached;
-                                request.Status = "True";
+                                request.Status = "Approve";
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();
                                 return true;
@@ -158,8 +158,8 @@ namespace DataAccess.RequestRepository
                             if (request != null)
                             {
                                 _context.Entry(request).State = EntityState.Detached;
-                                request.RequestStatus = "True";
-                                request.ApproverId = "3";
+                                request.RequestStatus = "Approve";
+                                request.ApproverId = approverId;
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();
                                 return true;
@@ -176,8 +176,8 @@ namespace DataAccess.RequestRepository
                             if (request != null)
                             {
                                 _context.Entry(request).State = EntityState.Detached;
-                                request.RequestStatus = "True";
-                                request.ApproverId = "3";
+                                request.RequestStatus = "Approve";
+                                request.ApproverId = approverId;
                                 request.ApproveDate = DateTime.Now;
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();
@@ -195,8 +195,8 @@ namespace DataAccess.RequestRepository
                             if (request != null)
                             {
                                 _context.Entry(request).State = EntityState.Detached;
-                                request.RequestStatus = "True";
-                                request.ApproverId = "3";
+                                request.RequestStatus = "Approve";
+                                request.ApproverId = approverId;
                                 request.ApproveDate = DateTime.Now;
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();
@@ -214,8 +214,8 @@ namespace DataAccess.RequestRepository
                             if (request != null)
                             {
                                 _context.Entry(request).State = EntityState.Detached;
-                                request.Status = "True";
-                                request.ApproverId = "3";
+                                request.Status = "Approve";
+                                request.ApproverId = approverId;
                                 request.ApproveDate = DateTime.Now;
                                 _context.Entry(request).State = EntityState.Modified;
                                 _context.SaveChanges();

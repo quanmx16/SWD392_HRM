@@ -1,6 +1,8 @@
 ﻿using DataAccess.EmployeeRepositories;
 using DataAccess.RequestRepository;
+using HRM_MVC.Common;
 using HRM_MVC.Models;
+using HRM_MVC.SessionManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Model.Data;
@@ -22,20 +24,49 @@ namespace HRM_MVC.Controllers
         }
         public IActionResult HRRequests()
         {
-            List<RequestDTO> list = _requestRepository.GetAllHRRequest();
-            if (list.Count != null)
+
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Equals(Roles.ROLE_HR_MANAGER))
             {
-                HRManagerModel model = new HRManagerModel();
-                model.listRequests = list; return View(model);
+                return RedirectToAction("Index", "Login");
             }
-            return RedirectToAction("Error");
+            else
+            {
+                List<RequestDTO> list = _requestRepository.GetAllHRRequest();
+                if (list.Count != null)
+                {
+                    HRManagerModel model = new HRManagerModel();
+                    model.listRequests = list; return View(model);
+                }
+                return RedirectToAction("Error");
+            }
         }
 
 
-        public IActionResult ApproveRequest (int id, string type,HRManagerModel model)
+        public IActionResult ApproveRequest(int id, string type, HRManagerModel model)
         {
-            _requestRepository.ApproveRequest(id, type);
-            return RedirectToAction("HRRequests", model);
+            var user = AuthorAuthen();
+            if (user == null || !user.Role.Equals(Roles.ROLE_HR_MANAGER))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                _requestRepository.ApproveRequest(id, type, user.EmployeeId);
+                return RedirectToAction("HRRequests", model);
+            }
+        }
+        private Employee AuthorAuthen()
+        {
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
+            {
+                return null;
+            }
+            else
+            {
+                return loginAccount.Employee;
+            }
         }
     }
 }
