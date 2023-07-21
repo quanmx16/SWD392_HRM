@@ -136,7 +136,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "Not in",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                         else if (currentDate > DateTime.Now)
@@ -147,7 +147,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "Not yet",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                         else
@@ -158,7 +158,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                     }
@@ -215,7 +215,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "Not in",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                         else if (currentDate > DateTime.Now)
@@ -226,7 +226,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "Not yet",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                         else
@@ -237,7 +237,7 @@ namespace HRM_MVC.Controllers
                                 EmployeeId = "",
                                 AttendanceId = -1,
                                 Employee = null,
-                                TimeCheck = DateTime.MinValue
+                                CheckInTime = DateTime.MinValue
                             });
                         }
                     }

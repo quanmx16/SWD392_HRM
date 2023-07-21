@@ -52,11 +52,21 @@ namespace Model.Data
 
                 entity.Property(e => e.AttendanceDate).HasColumnType("date");
 
-                entity.Property(e => e.EmployeeId)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.CheckInTime).HasColumnType("datetime");
 
-                entity.Property(e => e.TimeCheck).HasColumnType("datetime");
+                entity.Property(e => e.CheckOutTime).HasColumnType("datetime");
+
+                entity.Property(e => e.DayIncome).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.EmployeeId).HasMaxLength(10);
+
+                entity.Property(e => e.OttimeIn)
+                    .HasColumnType("datetime")
+                    .HasColumnName("OTTimeIn");
+
+                entity.Property(e => e.OttimeOut)
+                    .HasColumnType("datetime")
+                    .HasColumnName("OTTimeOut");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Attendances)

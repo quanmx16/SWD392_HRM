@@ -23,7 +23,7 @@ namespace DataAccess.AttendenceRepositories
                 Attendance attendance = new Attendance
                 {
                     AttendanceDate = dateCheck.Date,
-                    TimeCheck = DateTime.Now,
+                    CheckInTime = DateTime.Now,
                     EmployeeId = id
                 };
                 context.Attendances.Add(attendance);
