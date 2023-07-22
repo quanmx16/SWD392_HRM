@@ -23,8 +23,8 @@ namespace Model.Models
             UpdateEmployeeInforRequestApprovers = new HashSet<UpdateEmployeeInforRequest>();
             UpdateEmployeeInforRequestEmployees = new HashSet<UpdateEmployeeInforRequest>();
         }
-
         public string EmployeeId { get; set; } = null!;
+        [MinLength(10)]
         public string? EmplyeeName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int? Gender { get; set; }

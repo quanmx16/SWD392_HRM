@@ -1,6 +1,8 @@
+using DataAccess.AttendenceRepositories;
 using DataAccess.EmployeeRepositories;
 using DataAccess.EmpRequestLeaveRepositories;
 using DataAccess.EmpResignationRequestsRepositories;
+using DataAccess.ResignationRequestRepositories;
 using Microsoft.EntityFrameworkCore;
 using Model.Data;
 using Prn221_group_project.Middleware;
@@ -21,6 +23,8 @@ builder.Services.AddSession();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmpRequestLeaveRepository, EmpRequestLeaveRepository>();
 builder.Services.AddScoped<IEmpResignationRequestsRepository, EmpResignationRequestsRepository>();
+builder.Services.AddScoped<IAttendenceRepository, AttendenceRepository>();
+builder.Services.AddScoped<IResignationRequestRepository, ResignationRequestRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

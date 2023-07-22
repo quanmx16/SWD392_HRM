@@ -14,10 +14,10 @@ namespace HRM_MVC.Controllers
 
         private readonly IEmployeeRepository employeeRepository;
         private readonly IAttendenceRepository attendenceRepository;
-        public AttendenceController()
+        public AttendenceController(IEmployeeRepository _employeeRepository,IAttendenceRepository _attendenceRepository)
         {
-            employeeRepository = new EmployeeRepository();
-            attendenceRepository = new AttendenceRepository();
+            employeeRepository = _employeeRepository;
+            attendenceRepository = _attendenceRepository;
         }
         [HttpGet]
         public IActionResult Index(DateTime? dateCheck)

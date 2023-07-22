@@ -10,9 +10,9 @@ namespace HRM_MVC.Controllers
     {
         protected IResignationRequestRepository resignationRequestRepository;
 
-        public ResignationRequestController()
+        public ResignationRequestController(IResignationRequestRepository _resignationRequestRepository)
         {
-            resignationRequestRepository = new ResignationRequestRepository();
+            resignationRequestRepository = _resignationRequestRepository;
         }
 
         [HttpGet]
