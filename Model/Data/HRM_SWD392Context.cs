@@ -60,13 +60,13 @@ namespace Model.Data
 
                 entity.Property(e => e.EmployeeId).HasMaxLength(10);
 
-                entity.Property(e => e.OttimeIn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("OTTimeIn");
+                //entity.Property(e => e.OttimeIn)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("OTTimeIn");
 
-                entity.Property(e => e.OttimeOut)
-                    .HasColumnType("datetime")
-                    .HasColumnName("OTTimeOut");
+                //entity.Property(e => e.OttimeOut)
+                //    .HasColumnType("datetime")
+                //    .HasColumnName("OTTimeOut");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Attendances)

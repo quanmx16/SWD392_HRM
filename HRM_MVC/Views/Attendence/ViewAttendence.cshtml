@@ -74,21 +74,24 @@
             @foreach (var item in Model.Attendances)
             {
                 <td>
-                    @if (item.EmployeeId == "Not yet")
+                    @if (item.AttendanceId == -2)
                     {
                         <p>Not yet</p>
                     }
-                    else if (item.EmployeeId == "Not in")
+                    else if (item.AttendanceId == -1)
                     {
                         <p></p>
                     }
-                    else if (item.EmployeeId != "")
+                    else if (item.AttendanceId == -3)
                     {
-                        <p>Present</p>
+                        <p><strong style="color: red;">Absent</strong></p>
                     }
                     else
                     {
-                        <p>Absent</p>
+                        <p><strong style="color: green;">Present</strong></p>
+                        <p>Check In Time: @item.CheckInTime</p>
+                        <p>Check Out Time: @item.CheckOutTime</p>
+                        <p>Day Income: @item.DayIncome.Value.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</p>
                     }
                 </td>
             }

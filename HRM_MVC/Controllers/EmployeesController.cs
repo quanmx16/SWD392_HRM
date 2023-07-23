@@ -96,29 +96,48 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                if (ModelState.IsValid)
-                {
-                    bool check = employeeRepository.CreateEmployee(employee);
-                    if (check)
-                    {
-                        return RedirectToAction("Create");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Error");
-                    }
-                }
                 List<string> roles = new List<string>
                 {
                     Roles.ROLE_EMPLOYEE,
                     Roles.ROLE_HR_MANAGER,
                     Roles.ROLE_HR
                 };
+                if (ModelState.IsValid)
+                {
+                    var validate = true;
+                    if (employee.Salary <= 0)
+                    {
+                        ViewData["ErrSalary"] = "Salary must be greater than 0";
+                        validate = false;
+                    }
 
-                ViewData["Roles"] = new SelectList(roles, employee.Role);
-                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-                ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-                return RedirectToAction("Index");
+                    if (validate)
+                    {
+                        bool check = employeeRepository.CreateEmployee(employee);
+                        if (check)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error");
+                        }
+                    }
+                    else
+                    {
+                        ViewData["Roles"] = new SelectList(roles, employee.Role);
+                        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                        ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                        return View("Create", employee);
+                    }
+                }
+                else
+                {
+                    ViewData["Roles"] = new SelectList(roles, employee.Role);
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    return View("Create", employee);
+                }
             }
         }
 
@@ -137,6 +156,12 @@ namespace HRM_MVC.Controllers
                     return RedirectToAction("Error");
                 }
 
+                List<string> roles = new List<string>
+                {
+                    Roles.ROLE_EMPLOYEE,
+                    Roles.ROLE_HR_MANAGER,
+                    Roles.ROLE_HR
+                };
                 var employee = employeeRepository.GetEmployeeById(id);
                 if (employee == null)
                 {
@@ -144,24 +169,8 @@ namespace HRM_MVC.Controllers
                 }
                 else
                 {
-                    List<DropDownRole> roles = new List<DropDownRole>
-                    {
-                        new DropDownRole
-                        {
-                            RoleName = Roles.ROLE_EMPLOYEE,
-                            Id = 1
-                        },
-                        new DropDownRole
-                        {
-                            RoleName = Roles.ROLE_HR,
-                            Id = 2
-                        },
-                        new DropDownRole
-                        {
-                            RoleName = Roles.ROLE_HR_MANAGER,
-                            Id = 3
-                        }
-                    };
+
+                    ViewData["Roles"] = new SelectList(roles, employee.Role);
                     ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
                     if (employee.Role.Trim() == Roles.ROLE_HR)
                     {
@@ -194,37 +203,74 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                if (id != employee.EmployeeId.Trim())
+                List<string> roles = new List<string>
                 {
-                    return RedirectToAction("Error");
-                }
-
+                    Roles.ROLE_EMPLOYEE,
+                    Roles.ROLE_HR_MANAGER,
+                    Roles.ROLE_HR
+                };
                 if (ModelState.IsValid)
                 {
-                    var check = employeeRepository.UpdateEmployee(employee);
-                    if (check)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
+                    if (id == null)
                     {
                         return RedirectToAction("Error");
                     }
-                }
-                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
-                if (employee.Role.Trim() == Roles.ROLE_HR)
-                {
-                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
-                }
-                else if (employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
-                {
-                    ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    var validate = true;
+                    if (employee.Salary <= 0)
+                    {
+                        ViewData["ErrSalary"] = "Salary must be greater than 0";
+                        validate = false;
+                    }
+
+                    if (validate)
+                    {
+                        var check = employeeRepository.UpdateEmployee(employee);
+                        if (check)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error");
+                        }
+                    }
+                    else
+                    {
+                        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                        if (employee.Role.Trim() == Roles.ROLE_HR)
+                        {
+                            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                        }
+                        else if (employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+                        {
+                            ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                        }
+                        else
+                        {
+                            ViewData["ManagerId"] = null;
+                        }
+                        ViewData["Roles"] = new SelectList(roles, employee.Role);
+                        return View("Edit", employee);
+                    }
                 }
                 else
                 {
-                    ViewData["ManagerId"] = null;
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    if (employee.Role.Trim() == Roles.ROLE_HR)
+                    {
+                        ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    }
+                    else if (employee.Role.Trim() == Roles.ROLE_EMPLOYEE)
+                    {
+                        ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
+                    }
+                    else
+                    {
+                        ViewData["ManagerId"] = null;
+                    }
+                    ViewData["Roles"] = new SelectList(roles, employee.Role);
+                    return View("Edit", employee);
                 }
-                return RedirectToAction("Index");
             }
         }
 
@@ -238,7 +284,7 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                if (id == null || _context.Employees == null)
+                if (id == null)
                 {
                     return RedirectToAction("Error");
                 }

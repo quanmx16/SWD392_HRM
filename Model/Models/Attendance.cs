@@ -8,8 +8,8 @@
         public DateTime? CheckInTime { get; set; }
         public DateTime? CheckOutTime { get; set; }
         public decimal? DayIncome { get; set; }
-        public DateTime? OttimeIn { get; set; }
-        public DateTime? OttimeOut { get; set; }
+        //public DateTime? OttimeIn { get; set; }
+        //public DateTime? OttimeOut { get; set; }
 
         public virtual Employee Employee { get; set; } = null!;
     }

@@ -10,6 +10,7 @@ namespace HRM_MVC.Models
     public class AttendanceModel
     {
         public Employee Employee { get; set; }
-        public bool IsChecked { get; set; } = false;
+        public bool CheckIn { get; set; } = false;
+        public bool CheckOut { get; set; } = false;
     }
 }

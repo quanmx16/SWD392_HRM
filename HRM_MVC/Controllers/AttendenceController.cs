@@ -20,7 +20,7 @@ namespace HRM_MVC.Controllers
             attendenceRepository = _attendenceRepository;
         }
         [HttpGet]
-        public IActionResult Index(DateTime? dateCheck)
+        public IActionResult CheckIn(DateTime? dateCheck)
         {
             var user = AuthorAuthen();
             if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
@@ -43,12 +43,22 @@ namespace HRM_MVC.Controllers
                     bool check = false;
                     foreach (var att in attendence)
                     {
-                        if (item.EmployeeId == att.EmployeeId)
+                        if (item.EmployeeId.Trim() == att.EmployeeId.Trim() && att.CheckInTime != null && att.CheckOutTime == null)
                         {
                             checkAttendenceModels.Attendances.Add(new AttendanceModel
                             {
                                 Employee = item,
-                                IsChecked = true
+                                CheckIn = true,
+                                CheckOut = false
+                            });
+                            check = true;
+                        }else if (item.EmployeeId == att.EmployeeId && att.CheckInTime != null && att.CheckOutTime != null)
+                        {
+                            checkAttendenceModels.Attendances.Add(new AttendanceModel
+                            {
+                                Employee = item,
+                                CheckIn = true,
+                                CheckOut = true
                             });
                             check = true;
                         }
@@ -58,7 +68,8 @@ namespace HRM_MVC.Controllers
                         checkAttendenceModels.Attendances.Add(new AttendanceModel
                         {
                             Employee = item,
-                            IsChecked = false
+                            CheckIn = false,
+                            CheckOut = false
                         });
                     }
                 }
@@ -78,13 +89,93 @@ namespace HRM_MVC.Controllers
                 List<string> list = new List<string>();
                 foreach (var emp in model.Attendances)
                 {
-                    if (emp.IsChecked)
+                    if (emp.CheckIn)
                     {
                         list.Add(emp.Employee.EmployeeId);
                     }
                 }
-                attendenceRepository.CheckAttendence(list, model.DateCheck);
-                return RedirectToAction("Index", model);
+                attendenceRepository.CheckAttendence(list);
+                return RedirectToAction("CheckIn", model);
+            }
+        }
+        [HttpGet]
+        public IActionResult CheckOut(DateTime? dateCheck)
+        {
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                CheckAttendenceModel checkAttendenceModels = new CheckAttendenceModel();
+                if (dateCheck == null)
+                {
+                    dateCheck = DateTime.Now;
+                }
+                checkAttendenceModels.DateCheck = dateCheck.Value;
+                var attendence = attendenceRepository.GetCheckOut(dateCheck.Value);
+                var list = employeeRepository.GetAll();
+                checkAttendenceModels.Attendances = new List<AttendanceModel>();
+                foreach (var item in list)
+                {
+                    bool check = false;
+                    foreach (var att in attendence)
+                    {
+                        if (item.EmployeeId.Trim() == att.EmployeeId.Trim() && att.CheckInTime != null && att.CheckOutTime == null)
+                        {
+                            checkAttendenceModels.Attendances.Add(new AttendanceModel
+                            {
+                                Employee = item,
+                                CheckIn = true,
+                                CheckOut = false
+                            });
+                            check = true;
+                        }
+                        else if (item.EmployeeId == att.EmployeeId && att.CheckInTime != null && att.CheckOutTime != null)
+                        {
+                            checkAttendenceModels.Attendances.Add(new AttendanceModel
+                            {
+                                Employee = item,
+                                CheckIn = true,
+                                CheckOut = true
+                            });
+                            check = true;
+                        }
+                    }
+                    if (!check)
+                    {
+                        checkAttendenceModels.Attendances.Add(new AttendanceModel
+                        {
+                            Employee = item,
+                            CheckIn = false,
+                            CheckOut = false
+                        });
+                    }
+                }
+                return View(checkAttendenceModels);
+            }
+        }
+        [HttpPost]
+        public IActionResult SubmitCheckOut(CheckAttendenceModel model)
+        {
+            var user = AuthorAuthen();
+            if (user == null || user.Role.Equals(Roles.ROLE_EMPLOYEE))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                List<string> list = new List<string>();
+                foreach (var emp in model.Attendances)
+                {
+                    if (emp.CheckOut)
+                    {
+                        list.Add(emp.Employee.EmployeeId);
+                    }
+                }
+                attendenceRepository.CheckOut(list);
+                return RedirectToAction("CheckOut", model);
             }
         }
         [HttpGet]
@@ -133,7 +224,6 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "Not in",
                                 AttendanceId = -1,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
@@ -144,8 +234,7 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "Not yet",
-                                AttendanceId = -1,
+                                AttendanceId = -2,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
                             });
@@ -155,8 +244,7 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "",
-                                AttendanceId = -1,
+                                AttendanceId = -3,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
                             });
@@ -212,7 +300,6 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "Not in",
                                 AttendanceId = -1,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
@@ -223,8 +310,7 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "Not yet",
-                                AttendanceId = -1,
+                                AttendanceId = -2,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
                             });
@@ -234,8 +320,7 @@ namespace HRM_MVC.Controllers
                             model.Attendances.Add(new Attendance
                             {
                                 AttendanceDate = currentDate,
-                                EmployeeId = "",
-                                AttendanceId = -1,
+                                AttendanceId = -3,
                                 Employee = null,
                                 CheckInTime = DateTime.MinValue
                             });

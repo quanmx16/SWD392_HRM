@@ -25,22 +25,30 @@ namespace Model.Models
         }
         public string EmployeeId { get; set; } = null!;
         [MinLength(10)]
+        [Required(ErrorMessage = " Please enter this field")]
         public string? EmplyeeName { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public DateTime? DateOfBirth { get; set; }
         public int? Gender { get; set; }
         [Required(ErrorMessage = "Please enter your email address")]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"[a-z0-9._%+-]+@+[a-z0-9.-]+.+[a-z]{2,4}", ErrorMessage = "Please enter correct email")]
         public string? Email { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public string? Password { get; set; }
         public string? Role { get; set; }
         public string? DepartmentId { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^0\d{9}$", ErrorMessage = "Please enter a valid phone number starting with '0' and having 10 digits")]
         public string? Phone { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public string? Address { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public decimal? Salary { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public string? TaxCode { get; set; }
+        [Required(ErrorMessage = " Please enter this field")]
         public string? Level { get; set; }
         public string? ManagerId { get; set; }
         public DateTime? DayOne { get; set; }
