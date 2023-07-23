@@ -100,6 +100,9 @@
     </tbody>
 </table>
 <script>
+    document.getElementById("yearSelector").addEventListener("change", function () {
+        document.getElementById("myForm").submit();
+    });
     document.getElementById("weekSelector").addEventListener("change", function () {
         document.getElementById("myForm").submit();
     });
