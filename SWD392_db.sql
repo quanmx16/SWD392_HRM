@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [HRM_SWD392]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Database [HRM_SWD392]    Script Date: 7/23/2023 9:05:26 PM ******/
 CREATE DATABASE [HRM_SWD392]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -80,7 +80,7 @@ ALTER DATABASE [HRM_SWD392] SET QUERY_STORE = OFF
 GO
 USE [HRM_SWD392]
 GO
-/****** Object:  Table [dbo].[Attendance]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[Attendance]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -92,15 +92,13 @@ CREATE TABLE [dbo].[Attendance](
 	[CheckInTime] [datetime] NULL,
 	[CheckOutTime] [datetime] NULL,
 	[DayIncome] [decimal](18, 0) NULL,
-	--[OTTimeIn] [datetime] NULL,
-	--[OTTimeOut] [datetime] NULL,
  CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED 
 (
 	[AttendanceId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ChangeWorkDepartmentRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[ChangeWorkDepartmentRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -123,7 +121,7 @@ CREATE TABLE [dbo].[ChangeWorkDepartmentRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Department]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[Department]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +135,7 @@ CREATE TABLE [dbo].[Department](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -165,7 +163,7 @@ CREATE TABLE [dbo].[Employee](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LeaveRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[LeaveRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -185,7 +183,7 @@ CREATE TABLE [dbo].[LeaveRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OTRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[OTRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -208,7 +206,7 @@ CREATE TABLE [dbo].[OTRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ResignationRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[ResignationRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -229,7 +227,7 @@ CREATE TABLE [dbo].[ResignationRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaxRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[TaxRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -253,7 +251,7 @@ CREATE TABLE [dbo].[TaxRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UpdateAttendanceRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[UpdateAttendanceRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -273,7 +271,7 @@ CREATE TABLE [dbo].[UpdateAttendanceRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UpdateEmployeeInforRequest]    Script Date: 7/23/2023 8:04:14 PM ******/
+/****** Object:  Table [dbo].[UpdateEmployeeInforRequest]    Script Date: 7/23/2023 9:05:26 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -306,9 +304,21 @@ CREATE TABLE [dbo].[UpdateEmployeeInforRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[Employee] ([EmployeeId], [EmplyeeName], [DateOfBirth], [Gender], [Email], [Password], [Role], [DepartmentId], [Phone], [Address], [Salary], [TaxCode], [Level], [ManagerId], [DayOne], [LastDay]) VALUES (N'EMP0016', N'TungNT Update123', CAST(N'2001-06-14' AS Date), 1, N'tungnt14062001@gmail.com', N'1', N'HR', NULL, N'0355408098', N'E7/52 tổ 17 ấp 5 xã Vĩnh Lộc A huyện Bình Chánh TP.HCM', CAST(12000000 AS Decimal(18, 0)), N'123121', N'2', N'EMP0018', CAST(N'2023-07-23' AS Date), NULL)
+SET IDENTITY_INSERT [dbo].[Attendance] ON 
 GO
-INSERT [dbo].[Employee] ([EmployeeId], [EmplyeeName], [DateOfBirth], [Gender], [Email], [Password], [Role], [DepartmentId], [Phone], [Address], [Salary], [TaxCode], [Level], [ManagerId], [DayOne], [LastDay]) VALUES (N'EMP0018', N'HRM1231211', CAST(N'2001-06-14' AS Date), 1, N'hrm@gmail.com', N'1', N'HRManager', NULL, N'0355408098', N'E7/52 tổ 17 ấp 5 xã Vĩnh Lộc A huyện Bình Chánh TP.HCM', CAST(12000000 AS Decimal(18, 0)), N'123121', N'2', NULL, CAST(N'2023-07-23' AS Date), NULL)
+INSERT [dbo].[Attendance] ([AttendanceId], [EmployeeId], [AttendanceDate], [CheckInTime], [CheckOutTime], [DayIncome]) VALUES (1, N'EMP0016', CAST(N'2023-07-23' AS Date), CAST(N'2023-07-23T12:34:49.480' AS DateTime), CAST(N'2023-07-23T20:39:55.283' AS DateTime), CAST(545455 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Attendance] ([AttendanceId], [EmployeeId], [AttendanceDate], [CheckInTime], [CheckOutTime], [DayIncome]) VALUES (2, N'EMP0018', CAST(N'2023-07-23' AS Date), CAST(N'2023-07-23T20:34:49.520' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[Attendance] ([AttendanceId], [EmployeeId], [AttendanceDate], [CheckInTime], [CheckOutTime], [DayIncome]) VALUES (3, N'EMP0020', CAST(N'2023-07-21' AS Date), CAST(N'2023-07-21T12:45:08.940' AS DateTime), CAST(N'2023-07-21T20:46:05.823' AS DateTime), CAST(545455 AS Decimal(18, 0)))
+GO
+SET IDENTITY_INSERT [dbo].[Attendance] OFF
+GO
+INSERT [dbo].[Employee] ([EmployeeId], [EmplyeeName], [DateOfBirth], [Gender], [Email], [Password], [Role], [DepartmentId], [Phone], [Address], [Salary], [TaxCode], [Level], [ManagerId], [DayOne], [LastDay]) VALUES (N'EMP0016', N'HR12345678', CAST(N'2001-06-14' AS Date), 1, N'hr@mail.com', N'1', N'HR', NULL, N'0111111111', N'HCM', CAST(12000000 AS Decimal(18, 0)), N'123121', N'2', N'EMP0018', CAST(N'2020-07-23' AS Date), NULL)
+GO
+INSERT [dbo].[Employee] ([EmployeeId], [EmplyeeName], [DateOfBirth], [Gender], [Email], [Password], [Role], [DepartmentId], [Phone], [Address], [Salary], [TaxCode], [Level], [ManagerId], [DayOne], [LastDay]) VALUES (N'EMP0018', N'HRM1231211', CAST(N'2001-06-14' AS Date), 1, N'hrm@gmail.com', N'1', N'HRManager', NULL, N'0111111111', N'HCM', CAST(12000000 AS Decimal(18, 0)), N'123121', N'2', NULL, CAST(N'2020-07-23' AS Date), NULL)
+GO
+INSERT [dbo].[Employee] ([EmployeeId], [EmplyeeName], [DateOfBirth], [Gender], [Email], [Password], [Role], [DepartmentId], [Phone], [Address], [Salary], [TaxCode], [Level], [ManagerId], [DayOne], [LastDay]) VALUES (N'EMP0020', N'EMP1234567', CAST(N'2001-02-23' AS Date), 2, N'emp@mail.com', N'1', N'Employee', NULL, N'0111111111', N'HCM', CAST(12000000 AS Decimal(18, 0)), N'123121', N'2', N'EMP0016', CAST(N'2020-07-23' AS Date), NULL)
 GO
 ALTER TABLE [dbo].[Attendance]  WITH CHECK ADD  CONSTRAINT [FK_Attendance_Employee] FOREIGN KEY([EmployeeId])
 REFERENCES [dbo].[Employee] ([EmployeeId])
