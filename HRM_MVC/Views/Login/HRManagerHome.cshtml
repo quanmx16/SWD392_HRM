@@ -4,10 +4,15 @@
 @{
 }
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70vh;">
-    <form  asp-action="HRRequests" asp-controller="HRManager" method="get" style="margin-bottom: 10px;">
-        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">HR Request</button>
+    <form asp-action="Index" asp-controller="UpdateEmployeeInforRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">Update Employee Infor Requests</button>
     </form>
-
+    <form asp-action="ResignationRequests" asp-controller="ResignationRequest" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">Resignation Requests</button>
+    </form>
+    <form asp-action="Index" asp-controller="LeaveRequests" method="get" style="margin-bottom: 10px;">
+        <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">Leave Requests</button>
+    </form>
     <form asp-action="Index" asp-controller="Logout" method="get" style="margin-bottom: 10px;">
         <button type="submit" class="btn btn-secondary" style="width: 500px; background-color: #4DB5BF; color: #FFFFFF">Logout</button>
     </form>

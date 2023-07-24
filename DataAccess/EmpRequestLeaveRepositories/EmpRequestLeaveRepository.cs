@@ -6,16 +6,8 @@ namespace DataAccess.EmpRequestLeaveRepositories
 {
     public interface IEmpRequestLeaveRepository
     {
-        List<LeaveRequest>? GetAll();
-
-        List<LeaveRequest>? GetByName(string nameUser);
-        List<LeaveRequest> GetByNameAndHrId(string nameUser, int hrId);
         List<LeaveRequest>? GetByUserId(string userId);
-        List<LeaveRequest>? GetByHrId(int? hrId);
         LeaveRequest GetById(int? id);
-
-
-
         void Update(LeaveRequest requestLeave);
         LeaveRequest saveLeaveRequest(LeaveRequest requestLeave);
     }
@@ -24,13 +16,6 @@ namespace DataAccess.EmpRequestLeaveRepositories
     public class EmpRequestLeaveRepository : IEmpRequestLeaveRepository
     {
         protected readonly HRM_SWD392Context _context;
-        public EmpRequestLeaveRepository(HRM_SWD392Context context)
-        {
-            if (_context == null)
-            {
-                _context = context;
-            }
-        }
         public EmpRequestLeaveRepository()
         {
             if (_context == null)
@@ -42,13 +27,8 @@ namespace DataAccess.EmpRequestLeaveRepositories
         {
             try
             {
-
-
                 _context.LeaveRequests.Add(requestLeave);
                 _context.SaveChanges();
-
-
-
             }
             catch (Exception ex)
             {
@@ -57,40 +37,28 @@ namespace DataAccess.EmpRequestLeaveRepositories
             return requestLeave;
         }
 
-        public List<LeaveRequest>? GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<LeaveRequest>? GetByHrId(int? hrId)
-        {
-            throw new NotImplementedException();
-        }
-
         public LeaveRequest GetById(int? id)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<LeaveRequest>? GetByName(string nameUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<LeaveRequest> GetByNameAndHrId(string nameUser, int hrId)
-        {
-            throw new NotImplementedException();
+            return _context.LeaveRequests.Where(x => x.RequestId == id.Value).FirstOrDefault();
         }
 
         public List<LeaveRequest>? GetByUserId(string userId)
         {
-            var requestLeaves = _context.LeaveRequests.Include(r => r.Hr).Where(c => c.EmployeeId == userId).ToList();
+            var requestLeaves = _context.LeaveRequests.Include(r => r.Hr).Where(c => c.EmployeeId.Trim() == userId.Trim()).ToList();
             return requestLeaves;
         }
 
         public void Update(LeaveRequest requestLeave)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.LeaveRequests.Update(requestLeave);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

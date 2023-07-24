@@ -2,8 +2,8 @@
 {
     public class RequestStatus
     {
-        public const string PENDDING = "pendding";
-        public const string APPROVED = "approved";
-        public const string REJECTED = "rejected";
+        public const string PENDDING = "Pending";
+        public const string APPROVED = "Approved";
+        public const string DENIED = "Denied";
     }
 }

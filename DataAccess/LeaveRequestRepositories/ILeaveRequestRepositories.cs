@@ -31,7 +31,7 @@ namespace DataAccess.LeaveRequestRepositories
                 return false;
             }
 
-            leaveRequest.Status = "Approve";
+            leaveRequest.Status = "Approved";
             _context.LeaveRequests.Update(leaveRequest);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -51,7 +51,7 @@ namespace DataAccess.LeaveRequestRepositories
                 return false;
             }
 
-            leaveRequest.Status = "Deny";
+            leaveRequest.Status = "Denied";
             _context.LeaveRequests.Update(leaveRequest);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -71,11 +71,12 @@ namespace DataAccess.LeaveRequestRepositories
 
         public async Task<List<LeaveRequest>> GetAllLeaveRequest()
         {
-            return await _context.LeaveRequests
+            var lst = await _context.LeaveRequests
                 .Include(l => l.Employee)
                 .Include(l => l.Hr)
                 .Where(x => x.Status == "Pending")
                 .ToListAsync();
+            return lst;
         }
     }
 }

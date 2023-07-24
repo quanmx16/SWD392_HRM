@@ -16,35 +16,37 @@ namespace HRM_MVC.Controllers
         public EmpLeaveRequestsController()
         {
             _context = new HRM_SWD392Context();
-            empRequestLeaveRepository = new EmpRequestLeaveRepository(_context);
+            empRequestLeaveRepository = new EmpRequestLeaveRepository();
         }
 
         //GET: EmpLeaveRequests
-        //public async Task<IActionResult> Index()
-        //{
-        //    var hRM_SWD392Context = _context.LeaveRequests.Include(l => l.Employee).Include(l => l.Hr);
-        //    return View(await hRM_SWD392Context.ToListAsync());
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var hRM_SWD392Context = _context.LeaveRequests
+                .Include(l => l.Employee)
+                .Include(l => l.Hr);
+            return View(await hRM_SWD392Context.ToListAsync());
+        }
 
         //// GET: EmpLeaveRequests/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.LeaveRequests == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.LeaveRequests == null)
+            {
+                return NotFound();
+            }
 
-        //    var leaveRequest = await _context.LeaveRequests
-        //        .Include(l => l.Employee)
-        //        .Include(l => l.Hr)
-        //        .FirstOrDefaultAsync(m => m.RequestId == id);
-        //    if (leaveRequest == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var leaveRequest = await _context.LeaveRequests
+                .Include(l => l.Employee)
+                .Include(l => l.Hr)
+                .FirstOrDefaultAsync(m => m.RequestId == id);
+            if (leaveRequest == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(leaveRequest);
-        //}
+            return View(leaveRequest);
+        }
 
         // GET: EmpLeaveRequests/Create
         public IActionResult Create()
@@ -206,6 +208,18 @@ namespace HRM_MVC.Controllers
         private bool LeaveRequestExists(int id)
         {
             return (_context.LeaveRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
+        }
+        private Employee AuthorAuthen()
+        {
+            LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
+            if (loginAccount == null)
+            {
+                return null;
+            }
+            else
+            {
+                return loginAccount.Employee;
+            }
         }
     }
 }
