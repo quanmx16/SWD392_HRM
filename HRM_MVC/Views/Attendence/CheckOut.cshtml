@@ -33,14 +33,14 @@
                 {
                 <tr>
                     <td>
-                        <input asp-for="@Model.Attendances[i].Employee.EmployeeId" value="@Model.Attendances[i].Employee.EmployeeId" hidden readonly />
+                        <input asp-for="@Model.Attendances[i].Employee.EmployeeId" value="@Model.Attendances[i].Employee.EmployeeId" hidden readonly disabled />
                         <p>@Model.Attendances[i].Employee.EmplyeeName</p>
                     </td>
                         @if (@Model.Attendances[i].CheckIn)
                         {
 
                         <td>
-                            <input asp-for="@Model.Attendances[i].CheckIn" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly />
+                            <input asp-for="@Model.Attendances[i].CheckIn" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly disabled />
                             <label for="chk_@Model.Attendances[i].Employee.EmployeeId" style="display: inline-block;">Check In</label>
                         </td>
                         <td>
@@ -51,11 +51,11 @@
                         else
                         {
                         <td>
-                            <input asp-for="@Model.Attendances[i].CheckIn" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly />
+                            <input asp-for="@Model.Attendances[i].CheckIn" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly disabled />
                             <label for="chk_@Model.Attendances[i].Employee.EmployeeId" style="display: inline-block;">Check In</label>
                         </td>
                         <td>
-                            <input asp-for="@Model.Attendances[i].CheckOut" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly />
+                            <input asp-for="@Model.Attendances[i].CheckOut" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly disabled />
                             <label for="chk_@Model.Attendances[i].Employee.EmployeeId" style="display: inline-block;">Check Out</label>
                         </td>
                         }
