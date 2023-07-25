@@ -59,13 +59,12 @@
                     @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
                 </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Hr.EmployeeId)
+                    @Html.DisplayFor(modelItem => item.Hr.EmplyeeName)
                 </td>
                 <td>
                     @if (item.Status == "Pending")
                     {
                         <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a>
-                        <p> </p>
                         <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
                     }
                     <a asp-action="Details" asp-route-id="@item.RequestId">Details</a>

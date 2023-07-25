@@ -9,6 +9,7 @@ namespace DataAccess.EmpRequestLeaveRepositories
         List<LeaveRequest>? GetByUserId(string userId);
         LeaveRequest GetById(int? id);
         void Update(LeaveRequest requestLeave);
+        void Delete(LeaveRequest requestLeave);
         LeaveRequest saveLeaveRequest(LeaveRequest requestLeave);
     }
 
@@ -39,12 +40,15 @@ namespace DataAccess.EmpRequestLeaveRepositories
 
         public LeaveRequest GetById(int? id)
         {
-            return _context.LeaveRequests.Where(x => x.RequestId == id.Value).FirstOrDefault();
+            return _context.LeaveRequests.Include(x => x.Employee).Include(x => x.Hr).Where(x => x.RequestId == id.Value).FirstOrDefault();
         }
 
         public List<LeaveRequest>? GetByUserId(string userId)
         {
-            var requestLeaves = _context.LeaveRequests.Include(r => r.Hr).Where(c => c.EmployeeId.Trim() == userId.Trim()).ToList();
+            var requestLeaves = _context.LeaveRequests
+                .Include(r => r.Hr)
+                .Include(x => x.Employee)
+                .Where(c => c.EmployeeId.Trim() == userId.Trim()).ToList();
             return requestLeaves;
         }
 
@@ -53,6 +57,18 @@ namespace DataAccess.EmpRequestLeaveRepositories
             try
             {
                 _context.LeaveRequests.Update(requestLeave);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void Delete(LeaveRequest requestLeave)
+        {
+            try
+            {
+                _context.LeaveRequests.Remove(requestLeave);
                 _context.SaveChanges();
             }
             catch (Exception ex)

@@ -48,6 +48,10 @@ namespace DataAccess.EmployeeRepositories
                     employee.DayOne = DateTime.Now;
                 }
                 employee.EmployeeId = id;
+                if(employee.Role == "HRManager")
+                {
+                    employee.Manager = null;
+                }
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
                 return true;
@@ -66,6 +70,10 @@ namespace DataAccess.EmployeeRepositories
                 if (emp != null)
                 {
                     _context.Entry(emp).State = EntityState.Detached;
+                    if (employee.Role == "HRManager")
+                    {
+                        employee.Manager = null;
+                    }
                     _context.Entry(employee).State = EntityState.Modified;
                     _context.SaveChanges();
                     return true;
@@ -84,20 +92,20 @@ namespace DataAccess.EmployeeRepositories
         }
         public Employee GetEmployeeById(string id)
         {
-            return _context.Employees.Find(id);
+            return _context.Employees.Include(x => x.Department).Include(x => x.Manager).Where(x => x.EmployeeId.Trim() == id.Trim()).FirstOrDefault();
         }
         public List<Employee> GetHROrHRM()
         {
-            return _context.Employees.Where(x => x.Role.Trim() == "HR" || x.Role.Trim() == "HRManager").ToList();
+            return _context.Employees.Include(x => x.Department).Include(x => x.Manager).Where(x => x.Role.Trim() == "HR" || x.Role.Trim() == "HRManager").ToList();
         }
 
         public List<Employee> GetHRM()
         {
-            return _context.Employees.Where(x => x.Role.Trim() == "HRManager").ToList();
+            return _context.Employees.Include(x => x.Department).Include(x => x.Manager).Where(x => x.Role.Trim() == "HRManager").ToList();
         }
         public List<Employee> GetHR()
         {
-            return _context.Employees.Where(x => x.Role.Trim() == "HR").ToList();
+            return _context.Employees.Include(x => x.Department).Include(x => x.Manager).Where(x => x.Role.Trim() == "HR").ToList();
         }
         public Employee? GetEmployeeByEmail(string email, string password)
         {

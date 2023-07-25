@@ -10,8 +10,8 @@ namespace DataAccess.LeaveRequestRepositories
         Task<List<Employee>> GetAllHR();
         Task<bool> CreateLeaveRequest(LeaveRequest leaveRequest);
         Task<List<LeaveRequest>> GetAllLeaveRequest();
-        Task<bool> Approve(int id);
-        Task<bool> Deny(int id);
+        Task<bool> Approve(int id, string hrmId);
+        Task<bool> Deny(int id, string hrmId);
     }
 
     public class LeaveRequestRepositories : ILeaveRequestRepositories
@@ -22,7 +22,7 @@ namespace DataAccess.LeaveRequestRepositories
             _context = new HRM_SWD392Context();
         }
 
-        public async Task<bool> Approve(int id)
+        public async Task<bool> Approve(int id, string hrmId)
         {
             var leaveRequest = await _context.LeaveRequests
                  .FirstOrDefaultAsync(m => m.RequestId == id);
@@ -30,7 +30,7 @@ namespace DataAccess.LeaveRequestRepositories
             {
                 return false;
             }
-
+            leaveRequest.Hrid = hrmId.Trim();
             leaveRequest.Status = "Approved";
             _context.LeaveRequests.Update(leaveRequest);
             return await _context.SaveChangesAsync() > 0;
@@ -42,7 +42,7 @@ namespace DataAccess.LeaveRequestRepositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> Deny(int id)
+        public async Task<bool> Deny(int id, string hrmId)
         {
             var leaveRequest = await _context.LeaveRequests
                 .FirstOrDefaultAsync(m => m.RequestId == id);
@@ -50,7 +50,7 @@ namespace DataAccess.LeaveRequestRepositories
             {
                 return false;
             }
-
+            leaveRequest.Hrid = hrmId.Trim();
             leaveRequest.Status = "Denied";
             _context.LeaveRequests.Update(leaveRequest);
             return await _context.SaveChangesAsync() > 0;

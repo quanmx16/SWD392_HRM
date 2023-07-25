@@ -41,7 +41,7 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                var result = await _leaveRequestRepo.Approve(id!.Value);
+                var result = await _leaveRequestRepo.Approve(id!.Value,user.EmployeeId.Trim());
                 if (result)
                 {
                     TempData["Success"] = "Approve Successfully";
@@ -61,7 +61,7 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                var result = await _leaveRequestRepo.Deny(id!.Value);
+                var result = await _leaveRequestRepo.Deny(id!.Value, user.EmployeeId.Trim());
                 if (result)
                 {
                     TempData["Success"] = "Deny Successfully";
