@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "ViewIncome";
+}
+
+<h1 style="text-align: center; color: #B70000;">Your Income</h1>
+<form id="myForm" method="post" asp-action="ViewIncome" style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <h3>Year </h3>
+    <select id="yearSelector" name="yearSelector" class="form-control" style="margin-right: 10px;">
+        @{
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+        }
+        @for (int i = year - 10; i <= year + 10; i++)
+        {
+            if (year == i)
+            {
+                <option value="@i" selected>
+                    @i
+                </option>
+            }
+            else
+            {
+                <option value="@i">
+                    @i
+                </option>
+            }
+        }
+    </select>
+    <h3>Month </h3>
+    <select id="monthSelector" name="monthSelector" class="form-control">
+        @for (int i = 1; i <= 12; i++)
+        {
+            if (month == i)
+            {
+                <option value="@i" selected>
+                    @i
+                </option>
+            }
+            else
+            {
+                <option value="@i">
+                    @i
+                </option>
+            }
+        }
+    </select>
+</form>
+<div>
+    <h3>Your Income: @Html.DisplayFor(income => income)</h3>
+</div>
+
+<script>
+    document.getElementById("yearSelector").addEventListener("change", function () {
+        document.getElementById("myForm").submit();
+    });
+    document.getElementById("weekSelector").addEventListener("change", function () {
+        document.getElementById("myForm").submit();
+    });
+</script>
