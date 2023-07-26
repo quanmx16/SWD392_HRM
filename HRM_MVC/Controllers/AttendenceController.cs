@@ -330,6 +330,53 @@ namespace HRM_MVC.Controllers
                 return View(model);
             }
         }
+
+        //View Income of an employee
+
+        [HttpGet]
+        public IActionResult ViewIncome()
+        {
+            var user = AuthorAuthen();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                decimal? income = 0;
+                DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+                var attendances = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, startDate, endDate);
+                foreach (var attendance in attendances)
+                {
+                    if (attendance.DayIncome != null) income += attendance.DayIncome;
+                }
+                return View(income);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ViewIncome(int monthSelector, int yearSelector)
+        {
+            var user = AuthorAuthen();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                decimal? income = 0;
+                DateTime startDate = new DateTime(yearSelector,monthSelector,1);
+                DateTime endDate = new DateTime(yearSelector,monthSelector,DateTime.DaysInMonth(yearSelector,monthSelector));
+                var attendances = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, startDate, endDate);
+                foreach (var attendance in attendances)
+                {
+                    if(attendance.DayIncome != null) income += attendance.DayIncome;
+                }
+                return View(income);
+            }
+        }
+        
         private Employee AuthorAuthen()
         {
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
