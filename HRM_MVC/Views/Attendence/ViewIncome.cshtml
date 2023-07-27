@@ -1,18 +1,15 @@
-﻿@{
+﻿@model ViewIncomeModel
+@{
     ViewData["Title"] = "ViewIncome";
 }
 
 <h1 style="text-align: center; color: #B70000;">Your Income</h1>
 <form id="myForm" method="post" asp-action="ViewIncome" style="display: flex; justify-content: center; margin-bottom: 20px;">
     <h3>Year </h3>
-    <select id="yearSelector" name="yearSelector" class="form-control" style="margin-right: 10px;">
-        @{
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
-        }
-        @for (int i = year - 10; i <= year + 10; i++)
+    <select asp-for="yearSelector" id="yearSelector" name="yearSelector" class="form-control" style="margin-right: 10px;">
+        @for (int i = Model.yearSelector - 10; i <= Model.yearSelector + 10; i++)
         {
-            if (year == i)
+            if (Model.yearSelector == i)
             {
                 <option value="@i" selected>
                     @i
@@ -27,10 +24,10 @@
         }
     </select>
     <h3>Month </h3>
-    <select id="monthSelector" name="monthSelector" class="form-control">
+    <select asp-for="monthSelector" id="monthSelector" name="monthSelector" class="form-control">
         @for (int i = 1; i <= 12; i++)
         {
-            if (month == i)
+            if (Model.monthSelector == i)
             {
                 <option value="@i" selected>
                     @i
@@ -46,14 +43,14 @@
     </select>
 </form>
 <div>
-    <h3>Your Income: @Html.DisplayFor(income => income)</h3>
+    <h3>Your Income: @Model.income.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</h3>
 </div>
 
 <script>
     document.getElementById("yearSelector").addEventListener("change", function () {
         document.getElementById("myForm").submit();
     });
-    document.getElementById("weekSelector").addEventListener("change", function () {
+    document.getElementById("monthSelector").addEventListener("change", function () {
         document.getElementById("myForm").submit();
     });
 </script>

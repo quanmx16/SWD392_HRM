@@ -74,7 +74,7 @@ namespace HRM_MVC.Controllers
             }
             else
             {
-                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
 
                 ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName");
 
@@ -134,7 +134,7 @@ namespace HRM_MVC.Controllers
                 else
                 {
                     ViewData["Roles"] = new SelectList(roles, employee.Role);
-                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartmentId);
                     ViewData["ManagerId"] = new SelectList(employeeRepository.GetHROrHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
                     return View("Create", employee);
                 }
@@ -171,7 +171,7 @@ namespace HRM_MVC.Controllers
                 {
 
                     ViewData["Roles"] = new SelectList(roles, employee.Role);
-                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartmentId);
                     if (employee.Role.Trim() == Roles.ROLE_HR)
                     {
                         ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
@@ -236,7 +236,7 @@ namespace HRM_MVC.Controllers
                     }
                     else
                     {
-                        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartmentId);
                         if (employee.Role.Trim() == Roles.ROLE_HR)
                         {
                             ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);
@@ -255,7 +255,7 @@ namespace HRM_MVC.Controllers
                 }
                 else
                 {
-                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+                    ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName", employee.DepartmentId);
                     if (employee.Role.Trim() == Roles.ROLE_HR)
                     {
                         ViewData["ManagerId"] = new SelectList(employeeRepository.GetHRM(), "EmployeeId", "EmplyeeName", employee.ManagerId);

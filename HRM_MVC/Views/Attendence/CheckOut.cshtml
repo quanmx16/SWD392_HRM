@@ -33,12 +33,10 @@
                 {
                 <tr>
                     <td>
-                        <input asp-for="@Model.Attendances[i].Employee.EmployeeId" value="@Model.Attendances[i].Employee.EmployeeId" hidden readonly disabled />
+                        <input asp-for="@Model.Attendances[i].Employee.EmployeeId" value="@Model.Attendances[i].Employee.EmployeeId" hidden readonly />
                         <p>@Model.Attendances[i].Employee.EmplyeeName</p>
-                    </td>
-                        @if (@Model.Attendances[i].CheckIn)
+                    </td>@if (@Model.Attendances[i].CheckIn)
                         {
-
                         <td>
                             <input asp-for="@Model.Attendances[i].CheckIn" type="checkbox" id="chk_@Model.Attendances[i].Employee.EmployeeId" readonly disabled />
                             <label for="chk_@Model.Attendances[i].Employee.EmployeeId" style="display: inline-block;">Check In</label>

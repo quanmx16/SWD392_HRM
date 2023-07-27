@@ -14,7 +14,7 @@ namespace HRM_MVC.Controllers
 
         private readonly IEmployeeRepository employeeRepository;
         private readonly IAttendenceRepository attendenceRepository;
-        public AttendenceController(IEmployeeRepository _employeeRepository,IAttendenceRepository _attendenceRepository)
+        public AttendenceController(IEmployeeRepository _employeeRepository, IAttendenceRepository _attendenceRepository)
         {
             employeeRepository = _employeeRepository;
             attendenceRepository = _attendenceRepository;
@@ -52,7 +52,8 @@ namespace HRM_MVC.Controllers
                                 CheckOut = false
                             });
                             check = true;
-                        }else if (item.EmployeeId == att.EmployeeId && att.CheckInTime != null && att.CheckOutTime != null)
+                        }
+                        else if (item.EmployeeId == att.EmployeeId && att.CheckInTime != null && att.CheckOutTime != null)
                         {
                             checkAttendenceModels.Attendances.Add(new AttendanceModel
                             {
@@ -347,11 +348,18 @@ namespace HRM_MVC.Controllers
                 DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 DateTime endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                 var attendances = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, startDate, endDate);
+
                 foreach (var attendance in attendances)
                 {
                     if (attendance.DayIncome != null) income += attendance.DayIncome;
                 }
-                return View(income);
+                ViewIncomeModel view = new ViewIncomeModel
+                {
+                    yearSelector = DateTime.Now.Year,
+                    monthSelector = DateTime.Now.Month,
+                    income = income.Value
+                };
+                return View(view);
             }
         }
 
@@ -366,17 +374,23 @@ namespace HRM_MVC.Controllers
             else
             {
                 decimal? income = 0;
-                DateTime startDate = new DateTime(yearSelector,monthSelector,1);
-                DateTime endDate = new DateTime(yearSelector,monthSelector,DateTime.DaysInMonth(yearSelector,monthSelector));
+                DateTime startDate = new DateTime(yearSelector, monthSelector, 1);
+                DateTime endDate = new DateTime(yearSelector, monthSelector, DateTime.DaysInMonth(yearSelector, monthSelector));
                 var attendances = attendenceRepository.GetAttendenceOfEmp(user.EmployeeId, startDate, endDate);
                 foreach (var attendance in attendances)
                 {
-                    if(attendance.DayIncome != null) income += attendance.DayIncome;
+                    if (attendance.DayIncome != null) income += attendance.DayIncome;
                 }
-                return View(income);
+                ViewIncomeModel view = new ViewIncomeModel
+                {
+                    yearSelector = yearSelector,
+                    monthSelector = monthSelector,
+                    income = income.Value
+                };
+                return View(view);
             }
         }
-        
+
         private Employee AuthorAuthen()
         {
             LoginAccount? loginAccount = SessionHelper.GetObjectFromSession<LoginAccount>(HttpContext.Session, KeyConstants.ACCOUNT_KEY);
