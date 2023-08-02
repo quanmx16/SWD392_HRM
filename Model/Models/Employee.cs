@@ -24,7 +24,7 @@ namespace Model.Models
             UpdateEmployeeInforRequestEmployees = new HashSet<UpdateEmployeeInforRequest>();
         }
         public string EmployeeId { get; set; } = null!;
-        [MinLength(10)]
+        [MinLength(1)]
         [Required(ErrorMessage = " Please enter this field")]
         public string? EmplyeeName { get; set; }
         [Required(ErrorMessage = " Please enter this field")]
